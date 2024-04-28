@@ -1,0 +1,86 @@
+input::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: color("Gray-03");
+}
+
+input::-moz-placeholder {
+    /* Firefox 19+ */
+    color: color("Gray-03");
+}
+
+input:-ms-input-placeholder {
+    /* IE 10+ */
+    color: color("Gray-03");
+}
+
+input:-moz-placeholder {
+    /* Firefox 18- */
+    color: color("Gray-03");
+}
+
+/* 隐藏 Chrome、Safari 上的上下箭头 */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* 隐藏 Firefox 上的上下箭头 */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
+
+input[type="date"],
+input[type="time"] {
+    min-height: 38px;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    height: auto;
+
+    border: none;
+    background-color: #fff;
+    color: color("Gray-02");
+    
+    -webkit-appearance: none;
+    appearance: none; // Fix appearance for date inputs in Safari
+    outline: none;
+}
+
+.autosize_textarea {
+    min-height: 150px;
+    resize: none;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 0;
+    // margin-bottom: 1.25rem;
+}
+
+.#{$PROJECT_NAME}_frm {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    &-bd{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    &-ft {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+
+        .#{$PROJECT_NAME}_btn {
+            flex: 1 1 auto;
+        }
+    }
+}

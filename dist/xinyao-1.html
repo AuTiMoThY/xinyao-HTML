@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="zh-Hant">
+    <head>
+        <title>心藥目錄 | 佛印山心藥系統</title>
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Cache-Control" content="no-store" />
+
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta name="robots" content="noindex,nofollow" />
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <!-- 讓手機不判斷它是電話號碼變顏色-->
+        <meta name="format-detection" content="telephone=no" />
+
+        <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png" />
+        <link rel="manifest" href="./favicon/site.webmanifest" />
+        <link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#dbdcdc" />
+        <meta name="theme-color" content="#ffffff" />
+
+        <!-- google font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap"
+            rel="stylesheet" />
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer" />
+        <!-- <link rel="stylesheet" href="https://npmcdn.com/flatpickr/dist/flatpickr.min.css"> -->
+        <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
+
+        <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
+        <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
+
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/vue-demi"></script>
+        <script src="https://unpkg.com/pinia"></script>
+
+        <script>
+            const baseUrl =
+                window.location.protocol +
+                "//" +
+                window.location.hostname +
+                (window.location.port ? ":" + window.location.port : "") +
+                "/";
+            console.log(baseUrl);
+        </script>
+
+        <link rel="stylesheet" href="./assets/css/style.css?v=20240414" />
+
+        <!-- ====================== -->
+        <!-- ===  心藥目錄(xinyao-1)頁面專用script === -->
+        <script>
+            const currentMenuItem = "xinyao-1";
+            // 這邊示意:
+            // 撈出的資料，以JSON儲存在 currentSubCateData
+            const currentSubCateData = [
+                {
+                    txt: "恐懼",
+                    note: "莫名恐懼/抓狂暴衝/小膽怕怕/過度擔憂/驚慌失措",
+                    item: [
+                        {
+                            name: "莫名恐懼",
+                            directions:
+                                "釋放遭受恐懼與擔憂困擾卻找不到原因的情緒。<br>莫名、無以名狀的恐懼，沒有原因的、沒有解釋的。<br>怕什麼不幸的事情將會降臨，但說不出是什麼、為什麼。<br>神經質，容易緊張焦慮。<br>對未來常有不祥的預感。<br>當被問及為何害怕，卻說不出理由。<br>感到不明原因且無法以言語解釋的不安或恐懼。",
+                            parts: [
+                                {
+                                    part_name: "頭面部",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827170913961396.jpeg",
+                                },
+                                {
+                                    part_name: "右頸胸肩",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827171071177117.jpeg",
+                                },
+                                {
+                                    part_name: "左腿內側",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827171340944094.jpeg",
+                                },
+                                {
+                                    part_name: "背部軀幹",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827171265736573.jpeg",
+                                },
+                            ],
+                        },
+                        {
+                            name: "抓狂暴衝",
+                            directions:
+                                "釋放害怕失控而傷害自己或他人的情緒。 <br>害怕自己精神錯亂、頭腦抓狂。當心裡受到太大的壓力或傷害時，快要控制不住自己的情緒，幾至崩潰抓狂時。每個人都有情緒失控、失去理性的時候，想報復、想傷害他人或自己、不斷哭泣、暴怒，或任何強烈情緒，都適用。對理性無法運作，變得無法控制自己而感到不安。",
+                            parts: [
+                                {
+                                    part_name: "背部軀幹",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827173147854785.jpeg",
+                                },
+                                {
+                                    part_name: "腿部正面",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827173368266826.jpeg",
+                                },
+                                {
+                                    part_name: "男性 陰部",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827173496559655.jpeg",
+                                },
+                                {
+                                    part_name: "女性陰部",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/2017082717370232232.jpeg",
+                                },
+                            ],
+                        },
+                        {
+                            name: "小膽怕怕",
+                            directions:
+                                "釋放擔心任何已知的、預設的恐懼情緒。 <br>這類型的人通常害羞而膽小安靜，有禮貌卻不善交際，常避免跟陌生人講話，清楚讓自己產生恐懼及不安的對象，對於任何已知原因的恐懼，舉凡怕高、怕昆蟲、怕死、怕黑、怯場等，都適用小膽怕怕心藥。可幫助這類型的人更有膽量，有勇氣表達自己。",
+                            parts: [
+                                {
+                                    part_name: "右頸胸肩",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827190985268526.jpeg",
+                                },
+                                {
+                                    part_name: "背部軀幹",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/2017082719110687687.jpeg",
+                                },
+                                {
+                                    part_name: "胸腹軀幹",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827191211301130.jpeg",
+                                },
+                                {
+                                    part_name: "左臂前方",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827191456405640.jpeg",
+                                },
+                                {
+                                    part_name: "右腳掌",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827191655635563.jpeg",
+                                },
+                                {
+                                    part_name: "男性 陰部",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827191780038003.jpeg",
+                                },
+                            ],
+                        },
+                        {
+                            name: "過度擔憂",
+                            directions:
+                                "釋放過度擔心親人安危福祉而內心不安的情緒。<br>為別人的福祉擔憂，像媽媽一樣，過度為他人擔憂，可能每隔幾分鐘就查看一次小孩，或是親人稍微晚歸就憂心忡忡。不斷對他人噓寒問暖。如果關心的人失聯一會兒，就設想各種意外狀況，擔心得發狂。",
+                            parts: [
+                                {
+                                    part_name: "左頸胸肩",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827192299259925.jpeg",
+                                },
+                                {
+                                    part_name: "背部軀幹",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827192341154115.jpeg",
+                                },
+                                {
+                                    part_name: "右手掌背",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827192443384338.jpeg",
+                                },
+                            ],
+                        },
+                        {
+                            name: "驚慌失措",
+                            directions:
+                                "釋放被意外事件驚嚇而驚惶的情緒。 <br>驚慌失措心藥對應最強烈的恐懼，例如半夜被惡夢驚醒，或經歷意外事件而驚駭恐慌。可能怕得全身顫抖冷汗直流，呆住了，大腦整個停止運作，眩暈。驚慌失措心藥能讓身心平靜，消除緊張，掌控狀況。感到極度恐懼，陷入恐慌的狀態之中。",
+                            parts: [
+                                {
+                                    part_name: "胸腹軀幹",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827192524372437.jpeg",
+                                },
+                                {
+                                    part_name: "臀部",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827192763366336.jpeg",
+                                },
+                                {
+                                    part_name: "大腿",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827192958695869.jpeg",
+                                },
+                                {
+                                    part_name: "大腿",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/2017082719300735735.jpeg",
+                                },
+                                {
+                                    part_name: "小腿",
+                                    part_img:
+                                        "http://maha-sati.org/admin/attached/media/20170827/20170827193119051905.jpeg",
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ];
+        </script>
+    </head>
+
+    <body>
+        <div class="xinyao_goTop" id="goTop">
+            <a class="xinyao_goTop-inner" href="javascript:;" @click.prevent="goToTop">
+                <i class="fa-solid fa-arrow-up"></i>
+            </a>
+        </div>
+        <!-- ========================================================================= -->
+        <!-- .body_wrap  START-->
+        <div class="body_wrap">
+            <aside class="site_aside" id="Aside">
+                <div class="site_aside-inner">
+                    <div class="site_aside-hd">
+                        <div class="site_aside-hd-top">
+                            <div class="member_info">
+                                <div class="icon">
+                                    <img src="./assets/images/member-icon.png" alt="" />
+                                </div>
+                                <div class="txt">
+                                    <b class="name">潘XX</b>
+                                    <div class="phone font-body-s">0912-345-678</div>
+                                </div>
+                            </div>
+                            <div class="ctrl-btns">
+                                <button class="ctrl-btn" @click="handleSearch">
+                                    <img src="./assets/images/icon-search.svg" alt="" v-if="!isOpenSearch" />
+                                    <img src="./assets/images/icon-close.svg" alt="" v-if="isOpenSearch" />
+                                </button>
+                                <a class="ctrl-btn" href="javascript:;"
+                                    ><img src="./assets/images/icon-home.svg" alt=""
+                                /></a>
+                            </div>
+                        </div>
+                        <div class="hr" v-if="isHomePage"></div>
+                        <div class="member_point">
+                            <div class="member_point-inner">
+                                <div class="font-h3 txt-main-color">1234點</div>
+                                <small class="font-note">2024/12/31 到期</small>
+                            </div>
+                        </div>
+                        <div
+                            class="site_menu-item"
+                            :class="{ 'js-highlight': menuStore.highlightedMenuItem === 'cart' }">
+                            <a class="inner" href="./cart.html">
+                                <span class="txt">挑選中調理帖</span>
+                                <span class="line"></span>
+                                <span class="cart_num">{{cart_num}}</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hr"></div>
+                    <div class="site_aside-bd">
+                        <div class="site_menu__wrap">
+                            <nav class="site_menu">
+                                <strong class="site_menu-title font-h3 txt-Gray-01">新增</strong>
+                                <ul class="site_menu-list">
+                                    <li
+                                        class="site_menu-item"
+                                        :class="{ 'js-highlight': menuStore.highlightedMenuItem === 'xinyao-2' }">
+                                        <a class="inner font-body-m" href="./xinyao-2.html">緊張應變</a>
+                                    </li>
+                                    <li
+                                        class="site_menu-item"
+                                        :class="{ 'js-highlight': menuStore.highlightedMenuItem === 'xinyao-3' }">
+                                        <a class="inner font-body-m" href="./xinyao-3.html">症狀初期</a>
+                                    </li>
+                                    <li
+                                        class="site_menu-item"
+                                        :class="{'open-sublist': menuStore.highlightedMenuItem === 'xinyao-1'}">
+                                        <div class="inner font-body-m">心藥目錄</div>
+                                        <ul class="sublist">
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">恐懼</div>
+                                                    <div class="note">
+                                                        莫名恐懼 / 抓狂暴衝 / 小膽怕怕 / 過度擔憂 / 驚慌失措
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">茫然</div>
+                                                    <div class="note">
+                                                        舉棋不定 / 挫折消沉 / 絕望重鬱 / 怠惰沒勁 / 優柔寡斷
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">妄念</div>
+                                                    <div class="note">
+                                                        重複犯錯 / 妄想未來 / 沉溺過去 / 不時憂鬱 / 失控思緒 / 生活無趣
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">寂寞</div>
+                                                    <div class="note">漫無目標 / 表現存在 / 性急浮躁 / 孤傲不群</div>
+                                                </a>
+                                            </li>
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">敏感</div>
+                                                    <div class="note">
+                                                        表面快樂 / 唯諾服務 / 怨瞋復仇 / 生活驟變 / 佔有依賴
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">負面</div>
+                                                    <div class="note">
+                                                        過度細節 / 喪失自信 / 罪己自責 / 驚嚇創傷 / 悲苦折磨 / 怨天尤人
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">重擔</div>
+                                                    <div class="note">
+                                                        身心耗竭 / 老牛拖車 / 責任硬撐 / 標準苛刻 / 嚴格律己 / 工作狂熱
+                                                        / 獨裁支配
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">靈性及業力</div>
+                                                    <div class="note">好運富足 / 光明灌頂 / 靈性加持</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="hr"></div>
+                            <nav class="site_menu">
+                                <strong class="site_menu-title font-h3 txt-Gray-01">管理</strong>
+                                <ul class="site_menu-list">
+                                    <li
+                                        class="site_menu-item"
+                                        :class="{ 'js-highlight': menuStore.highlightedMenuItem === 'history' }">
+                                        <a class="inner" href="./history.html">調理帖紀錄</a>
+                                    </li>
+                                    <li
+                                        class="site_menu-item"
+                                        :class="{ 'js-highlight': menuStore.highlightedMenuItem === 'favourite' }">
+                                        <a class="inner" href="./favourite.html">常用調理帖</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="site_aside-ft">
+                        <a href="./" class="xinyao_btn">
+                            <div class="icon">
+                                <svg data-src="./assets/images/icon-logout.svg"></svg>
+                            </div>
+                            <div class="txt">登出</div>
+                        </a>
+                    </div>
+                </div>
+            </aside>
+            <!-- =========================================================================-->
+            <!-- 頁面內容  START-->
+            <!-- =========================================================================-->
+            <main class="page_main page-home" id="xinyaoList">
+                <div class="search_bar" :class="{'js-open': isOpenSearch}">
+                    <div class="search_bar-field">
+                        <div class="search_bar-icon">
+                            <svg data-src="./assets/images/icon-search.svg"></svg>
+                        </div>
+                        <input type="text" class="search_bar-input" placeholder="搜尋調理項目" />
+                    </div>
+                    <div class="search_bar-btn">
+                        <a class="xinyao_btn" type="button" href="./search.html">搜尋</a>
+                    </div>
+                </div>
+                <div class="hr" v-if="!isMobile"></div>
+
+                <div class="page_main-container" v-if="!isMobile">
+                    <h1 class="page_main-title txt-main-color">心藥目錄：恐懼</h1>
+                    <div class="xinyao_datatable__wrap">
+                        <div class="xinyao_datatable">
+                            <div class="xinyao_datatable-heading">
+                                <div class="xinyao_datatable-th name">調理項目</div>
+                                <div class="xinyao_datatable-th info">說明</div>
+                                <div class="xinyao_datatable-th action">操作</div>
+                            </div>
+                            <!-- 數據行：用於動態生成每條數據的 DOM 結構 -->
+                            <!-- 使用 `v-for` 指令迭代 `data` 數據陣列中的每個 `item` 及其 `index` -->
+                            <!-- `:key` 屬性設定為 `index`，確保每個元素都有唯一的鍵值，這有助於 Vue 在更新和重新渲染時進行優化。 -->
+                            <div class="xinyao_datatable-tr" v-for="(item, index) in data" :key="index">
+                                <div class="xinyao_datatable-td name" data-th="調理項目">{{item.name}}</div>
+                                <div class="xinyao_datatable-td info" data-th="說明">
+                                    <p class="txt" v-html="item.directions"></p>
+                                </div>
+                                <div class="xinyao_datatable-td action" data-th="操作">
+                                    <div class="action-amount">
+                                        <!-- 數量加減元件 -->
+                                        <!-- dist\assets\js\vue-components.js -->
+                                        <amount-field v-model="item.amount"></amount-field>
+
+                                        <!-- 按鈕：加入 -->
+                                        <!-- `@click` 是 Vue 中的事件綁定語法，用來定義當按鈕被點擊時執行的方法。 -->
+                                        <!-- 此按鈕點擊時會執行 `addToList(item)` 方法，將當前項目 `item` 加入到列表中。 -->
+                                        <button type="button" class="action_btn" @click="addToList(item)">加入</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="xinyao_datatable-ft" v-if="isMobile">
+                        <a href="./" class="xinyao_btn xinyao_btn-nobg">回目錄</a>
+                        <a href="./cart.html" class="xinyao_btn">查看已挑選</a>
+                    </div>
+                </div>
+                <!-- popup 彈出視窗 -->
+                <div v-if="showPopupSelect" class="popup popup_select">
+                    <div class="popup-block">
+                        <div class="popup-hd">
+                            <b class="popup-title txt-main-color">請選擇您不適的部位</b>
+                            <small class="font-note txt-sub-color">可複選</small>
+                        </div>
+                        <div class="popup-bd">
+                            <div class="select_parts">
+                                <ul class="select_parts-list">
+                                    <li class="select_parts-item" v-for="(part, index) in selectParts">
+                                        <label :for="'part-' + index" class="item_label">
+                                            <input
+                                                type="checkbox"
+                                                class="item_input--checkbox"
+                                                :id="'part-' + index"
+                                                :value="part.part_name"
+                                                v-model="selectedParts" />
+                                            <div class="select_parts-item-inner">
+                                                <span class="label">{{part.part_name}}</span>
+                                                <span class="img">
+                                                    <img :src="part.part_img" :alt="part.part_name" />
+                                                </span>
+                                            </div>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="popup-ft">
+                            <!-- 點擊後執行`handleSelection(isUnknown)`方法 -->
+                            <button @click="handleSelection(true)" type="button" class="xinyao_btn xinyao_btn-nobg">
+                                無/未知
+                            </button>
+                            <button
+                                @click="handleSelection(false)"
+                                type="button"
+                                class="xinyao_btn"
+                                :disabled="!hasSelected">
+                                確認
+                            </button>
+                        </div>
+                        <button @click="showPopupSelect = false" type="button" class="popup-close">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.popup_select END ! -->
+                <!-- 通知元件 (notification) -->
+                <!-- dist\assets\js\vue-components.js -->
+                <notification
+                    :show="showNotification"
+                    :msgtitle="notificationTitle"
+                    :msgcnt="notificationCnt"></notification>
+            </main>
+
+            <!-- /.page_main END  !! -->
+            <!-- =========================================================================-->
+            <!-- 頁面內容  END  !!-->
+            <!-- =========================================================================-->
+        </div>
+        <!-- /.body_wrap  END  !!-->
+        <!-- =========================================================================-->
+
+        <script src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js" async></script>
+        <script src="./assets/js/eventBus.js?v=20240414"></script>
+        <script src="./assets/js/script.js?v=20240414"></script>
+        <script type="module" src="./assets/js/frontend/aside.js?v=20240414"></script>
+
+        <script type="module" src="./assets/js/frontend/xinyao.js?v=20240414"></script>
+    </body>
+</html>

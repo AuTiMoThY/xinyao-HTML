@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+/* *****************************************/
+/*    css
+/*    V 20240115
+/*        by AuOzzy
+/******************************************/
+@use "sass:math";
+@import "core";
+
+@keyframes enlarge {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        width: calc(100% + 30px);
+        height: calc(100% + 30px);
+    }
+}
+
+// ********** COMPONENT START ********** //
+@import "generate/components/btns";
+@import "generate/components/gotop";
+@import "generate/components/popup";
+@import "generate/components/notification";
+@import "generate/components/dialog";
+@import "generate/components/form/frm_set";
+// @import "generate/components/form/input";
+@import "generate/components/form/field";
+
+// ********** LAYOUT START ********** //
+@import "generate/layout/header";
+@import "generate/layout/footer";
+@import "generate/layout/container";
+
+
+// ********** frontend START ********** //
+
+/* layout */
+@import "frontend/body_wrap";
+@import "frontend/page_main";
+
+/* parts */
+@import "frontend/site_aside";
+@import "frontend/site_menu";
+@import "frontend/search_bar";
+@import "frontend/xinyao_datatable";
+@import "frontend/select_parts";
+@import "frontend/grid-table";
+@import "frontend/cart";
+@import "frontend/history__datatable";
+@import "frontend/history_detail__datatable";
+@import "frontend/favourite__datatable";
+@import "frontend/favourite_detail__datatable";
+
+/* pages */
+@import "frontend/page-login";

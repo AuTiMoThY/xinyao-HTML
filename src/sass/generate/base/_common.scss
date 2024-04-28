@@ -1,0 +1,47 @@
+body {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    color: var(--Gray-02);
+    &.js-dom_ready {
+        opacity: 1;
+    }
+}
+img {
+    width: 100%;
+    height: auto;
+}
+
+.page_section {
+    padding-top: var(--spacing-half);
+    padding-bottom: var(--spacing-half);
+}
+
+.page_head {
+    padding-top: var(--spacing);
+    padding-bottom: var(--spacing-half);
+}
+
+a {
+    color: currentColor;
+    transition: all 0.3s ease-in-out;
+}
+
+.hr {
+    width: 100%;
+    height: 1px;
+    background-color: color("Gray-04");
+
+    flex: 0 0 auto;
+
+    &.show-desktop {
+        @include rwd-mobile {
+            display: none;
+        }
+    }
+    &.show-mobile {
+        display: none;
+        @include rwd-mobile {
+            display: block;
+        }
+    }
+}

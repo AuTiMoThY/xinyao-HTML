@@ -1,0 +1,192 @@
+.xinyao_datatable__wrap {
+    // display: flex;
+    // flex-direction: column;
+    // gap: var(--spacing-4x);
+    width: 100%;
+    // // padding-left: var(--spacing-8x);
+
+
+    .title {
+        text-align: center;
+    }
+}
+.xinyao_datatable {
+    // display: table;
+
+    // &-heading,
+    // &-tr {
+    //     display: table-row;
+    //     @include rwd-mobile {
+    //         display: block;
+    //     }
+    // }
+
+    // &-th,
+    // &-td {
+    //     display: table-cell;
+    //     @include rwd-mobile {
+    //         display: block;
+    //     }
+    // }
+}
+
+.xinyao_datatable {
+    border: 1px solid var(--Gray-04);
+    border-radius: $border-radius-base;
+
+    &-heading, &-tr {
+        display: grid;
+        grid-template-columns: 120px 1fr 230px;
+        align-items: center;
+        // justify-content: stretch;
+
+        @include rwd-mobile {
+            display: block;
+        }
+    }
+    &-heading {
+        @include rwd-mobile {
+            display: none;
+        }
+    }
+
+    &-tr {
+        &:not(:first-of-type, :nth-of-type(2)) {
+            border-top: 1px solid var(--Gray-04);
+        }
+        // &:not(:first-of-type, :nth-of-type(2)) {
+        //     .xinyao_datatable-td {
+        //         border-top: 1px solid var(--Gray-04);
+        //     }
+        // }
+    }
+
+    &-th {
+        background-color: var(--Gray-05);
+    }
+
+    &-th,
+    &-td {
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        padding: var(--spacing-1x) var(--spacing-2x);
+        &:first-of-type {
+            text-wrap: nowrap;
+            word-break: keep-all;
+            // width: 120px;
+        }
+
+        &.action {
+            // width: 230px;
+            padding-left: var(--spacing-4x);
+        }
+    }
+
+    &-td {
+        position: relative;
+        vertical-align: middle;
+
+        &:not(:first-of-type) {
+            &::before {
+                content: '';
+                display: block;
+                width: 1px;
+                height: calc(100% - 16px);
+                background-color: var(--Gray-04);
+
+                @include absolute(8px, $L:-1px);
+            }
+        }
+
+        &.name {
+            @include rwd-mobile {
+                background-color: var(--Gray-05);
+                border-radius: $border-radius-base $border-radius-base 0 0;
+                font-size: var(--font-h3);
+                font-weight: #{map-get(map-get($font, 'h3'), 'fw' )};
+                letter-spacing: #{map-get(map-get($font, 'h3'), 'ls' )};
+                line-height: #{map-get(map-get($font, 'h3'), 'lh' )};
+                text-align: center;
+            }
+        }
+
+        &.info {
+            .txt {
+                @include rwd-mobile {
+                    font-size: var(--font-body-s);
+                    font-weight: #{map-get(map-get($font, 'body-s'), 'fw' )};
+                    letter-spacing: #{map-get(map-get($font, 'body-s'), 'ls' )};
+                    line-height: #{map-get(map-get($font, 'body-s'), 'lh' )};
+                }
+            }
+        }
+
+        &.action {
+
+            @include rwd-mobile {
+                width: 100%;
+                border-top: 1px solid var(--Gray-04);
+                padding: var(--spacing-2x);
+            }
+            .action-amount {
+                @include rwd-mobile {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+        }
+    }
+
+    &-pagination {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        
+        &-btn {
+            border: none;
+            background-color: transparent;
+            color: var(--main-color);
+            @extend .font-body-m;
+        }
+        
+        &-number {
+            @extend .font-body-m;
+            .current {
+                color: var(--sub-color);
+            }
+        }
+    }
+
+    &-ft {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        width: 100%;
+
+        .xinyao_btn {
+            flex: 1;
+        }
+    }
+
+    .action-amount {
+        display: flex;
+        gap: var(--spacing-2x);
+
+        .action_btn {
+            border: none;
+            background-color: #fff;
+            text-wrap: nowrap;
+
+            @extend .font-body-m;
+            color: var(--main-color);
+
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                color: var(--sub-color);
+            }
+        }
+    }
+}

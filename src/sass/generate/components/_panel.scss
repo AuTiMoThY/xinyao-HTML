@@ -1,0 +1,44 @@
+.#{$PROJECT_NAME}_panel {
+    border-radius: 8px;
+    background-color: rgba(3, 13, 38, 0.80);
+    box-shadow: 0px 4px 24px 0px rgba(23, 42, 89, 0.25);
+    // overflow: hidden;
+    
+    &-hd {
+        padding: 24px 0;
+        background-color: rgba(3, 13, 38, 0.50);
+        border-radius: 8px 8px 0 0;
+        color: #FFF;
+        text-align: center;
+    }
+    &-bd {
+        display: flex;
+        justify-content: center;
+        border-radius: 0 0 8px 8px;
+        // gap: 40px 0;
+        padding: 40px;
+        color: #FFF;
+    }
+    &-ft {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    &-nobg {
+        background-color: transparent;
+        // box-shadow: none;
+        .#{$PROJECT_NAME}_panel-hd {
+            background-color: transparent;
+            color: color("main-color");
+        }
+        .#{$PROJECT_NAME}_panel-bd {
+            padding-left: 0;
+            padding-right: 0;
+            background-color: transparent;
+            color: color("main-color");
+        }
+    }
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-Hant">
+    <head>
+        <title>[[page_title]] | 佛印山心藥系統</title>
+
+        <% include "../pages_templates/_head.njk" %>
+        <% block page_head %><% endblock %>
+    </head>
+
+    <body>
+        <div class="xinyao_goTop" id="goTop">
+            <a
+                class="xinyao_goTop-inner"
+                href="javascript:;"
+                @click.prevent="goToTop"
+            >
+                <i class="fa-solid fa-arrow-up"></i>
+            </a>
+        </div>
+        <!-- ========================================================================= -->
+        <!-- .body_wrap  START-->
+        <div class="body_wrap">
+            <% include "_aside.njk" %> <% block content %><% endblock %>
+        </div>
+        <!-- /.body_wrap  END  !!-->
+        <!-- =========================================================================-->
+
+        <script
+            src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js"
+            async
+        ></script>
+        <script src="[[JS_PATH]]eventBus.js?v=[[ VERSION ]]"></script>
+        <script src="[[JS_PATH]]script.js?v=[[ VERSION ]]"></script>
+        <script type="module" src="[[JS_PATH]]frontend/aside.js?v=[[VERSION]]"></script>
+
+        <% block page_script %><% endblock %>
+    </body>
+</html>

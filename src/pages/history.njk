@@ -1,0 +1,249 @@
+<% set page_title = "調理帖紀錄" %>
+<% extends "_layout.njk" %>
+
+
+<% block page_head %>
+
+<!-- ====================== -->
+<!-- ===  調理帖紀錄(history)頁面專用script === -->
+<script>
+    const currentMenuItem = 'history';
+    // 這邊示意:
+    // 撈出的資料，以JSON格式儲存在 historyData 
+    const historyData = [
+        {
+            'status': '等待中',
+            'order_num': '20231226134755',
+            'p_name': '李OO的調理帖',
+            'p_value': '4',
+            'p_time': '1',
+            'p_point': '1',
+            'billing_date': '2023/12/24',
+            'run_date': '',
+            'u_name': '李OO',
+            'u_addr': '台中市南屯區',
+            'u_phone': '0912345678',
+            'p_detail': [
+                {
+                    'item_name': '莫名恐懼 (頭面部)',
+                    'item_amount': '1'
+                },
+                {
+                    'item_name': '莫名恐懼',
+                    'item_amount': '1'
+                },
+                {
+                    'item_name': '小膽怕怕 (右腳掌)',
+                    'item_amount': '1'
+                },
+            ]
+        },
+        {
+                'status': '運行中',
+                'order_num': '20231226134755',
+                'p_name': '王XX的調理帖',
+                'p_value': '3',
+                'p_time': '1',
+                'p_point': '1',
+                'billing_date': '2023/12/24',
+                'run_date': '2023/12/26 10:15',
+                'u_name': '王XX',
+                'u_addr': '台北市中山區',
+                'u_phone': '0912345678',
+                'p_detail': [
+                    {
+                        'item_name': '莫名恐懼 (頭面部)',
+                        'item_amount': '1'
+                    },
+                    {
+                        'item_name': '莫名恐懼',
+                        'item_amount': '1'
+                    },
+                    {
+                        'item_name': '小膽怕怕 (右腳掌)',
+                        'item_amount': '1'
+                    },
+                ]
+        },
+        {            
+                'status': '已取消',
+                'order_num': '20231226134755',
+                'p_name': '調理帖名稱',
+                'p_value': '4',
+                'p_time': '1',
+                'p_point': '1',
+                'billing_date': '2023/12/20',
+                'run_date': '',
+                'u_name': '林XO',
+                'u_addr': '澎湖縣馬公市',
+                'u_phone': '0912345678',
+                'p_detail': [
+                    {
+                        'item_name': '莫名恐懼 (頭面部)',
+                        'item_amount': '1'
+                    },
+                    {
+                        'item_name': '莫名恐懼',
+                        'item_amount': '1'
+                    },
+                    {
+                        'item_name': '小膽怕怕 (右腳掌)',
+                        'item_amount': '1'
+                    },
+                ]
+        },
+        {
+                'status': '已完成',
+                'order_num': '20231226134755',
+                'p_name': '調理帖名稱666',
+                'p_value': '3',
+                'p_time': '1',
+                'p_point': '1',
+                'billing_date': '2023/12/19',
+                'run_date': '2023/12/20 10:15',
+                'u_name': '劉OO',
+                'u_addr': '台北市北投區',
+                'u_phone': '0912345678',
+                'p_detail': [
+                    {
+                        'item_name': '莫名恐懼 (頭面部)',
+                        'item_amount': '1'
+                    },
+                    {
+                        'item_name': '莫名恐懼',
+                        'item_amount': '1'
+                    },
+                    {
+                        'item_name': '小膽怕怕 (右腳掌)',
+                        'item_amount': '1'
+                    },
+                ]
+        }
+
+    ];
+</script>
+<% endblock %>
+
+<% block content %>
+
+<!-- =========================================================================-->
+<!-- 頁面內容  START-->
+<!-- =========================================================================-->
+<main class="page_main page-history" id="history">
+    <% include "../pages_templates/_searchbar.njk" %>
+
+    <div class="page_main-container">
+        <h1 class="page_main-title txt-main-color">[[page_title]]</h1>
+        <div class="history__datatable grid-table">
+            <div class="history__datatable-heading grid-tablerow">
+                <div class="history__datatable-td grid-cell status">狀態</div>
+                <div class="history__datatable-td grid-cell order_num">單號</div>
+                <div class="history__datatable-td grid-cell p_name">名稱</div>
+                <div class="history__datatable-td grid-cell p_value">調理值</div>
+                <div class="history__datatable-td grid-cell p_time">時效</div>
+                <div class="history__datatable-td grid-cell p_point">花費點數</div>
+                <div class="history__datatable-td grid-cell billing_date">開單日期</div>
+                <div class="history__datatable-td grid-cell run_date">運行日期</div>
+                <div class="history__datatable-td grid-cell action">操作</div>
+            </div>
+            <div class="history__datatable-data grid-tablerow" v-for="(item, index) in data" :key="index">
+                <div class="history__datatable-td grid-cell status" :class="setStatusClass(item)" data-th="狀態">{{item.status}}</div>
+                <div class="history__datatable-td grid-cell order_num" data-th="單號">{{item.order_num}}</div>
+                <div class="history__datatable-td grid-cell p_name" data-th="名稱">{{item.p_name}}</div>
+                <div class="history__datatable-td grid-cell p_value" data-th="調理值">{{item.p_value}}</div>
+                <div class="history__datatable-td grid-cell p_time" data-th="時效">{{item.p_time}}小時</div>
+                <div class="history__datatable-td grid-cell p_point" data-th="花費點數">{{item.p_point}}</div>
+                <div class="history__datatable-td grid-cell billing_date" data-th="開單日期">{{item.billing_date}}</div>
+                <div class="history__datatable-td grid-cell run_date" data-th="運行日期">{{item.run_date}}</div>
+                <div class="history__datatable-td grid-cell action" data-th="操作">
+                    <button class="action_btn" @click="toggleMenu(index)">
+                        <svg data-src="[[IMG_PATH]]icon-dropdownmenu.svg"></svg>
+                    </button>
+                    <div class="action_menu" v-show="currentActionMenuIndex === index">
+                        <button class="action_menu-btn" @click="showDetail(item)">
+                            <span class="icon">
+                                <svg data-src="[[IMG_PATH]]icon-info.svg"></svg>
+                            </span>
+                            <span class="txt">調理帖明細</span>
+                        </button>
+                        <template v-if="item.status != '已完成' && item.status != '已取消'">
+                            <div class="hr"></div>
+                            <button class="action_menu-btn" @click="openCancel">
+                                <span class="icon">
+                                    <svg data-src="[[IMG_PATH]]icon-cancel.svg"></svg>
+                                </span>
+                                <span class="txt">取消運行</span>
+                            </button>
+                        </template>
+                        <template v-if="item.status !== '等待中' && item.status !== '運行中'">
+                            <div class="hr"></div>
+                            <button class="action_menu-btn" @click="replay(item)">
+                                <span class="icon">
+                                    <svg data-src="[[IMG_PATH]]icon-replay.svg"></svg>
+                                </span>
+                                <span class="txt">再次運行</span>
+                            </button>
+                        </template>
+                        <div class="hr"></div>
+                        <button class="action_menu-btn" @click="addFav">
+                            <span class="icon">
+                                <svg data-src="[[IMG_PATH]]icon-kid_star.svg"></svg>
+                            </span>
+                            <span class="txt">加入常用</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="showPopupDetail" class="popup popup_detail">
+        <div class="popup-block">
+            <div class="popup-hd ">
+                <b class="popup-title txt-main-color">調理帖明細</b>
+            </div>
+            <div class="popup-bd">
+                <div class="history_detail__datatable grid-table">
+                    <div class="history_detail__datatable-heading grid-tablerow">
+                        <div class="history_detail__datatable-th grid-cell name">調理項目</div>
+                        <div class="history_detail__datatable-th grid-cell amount">份量</div>
+                    </div>
+                    <div class="grid-tablerow history_detail__datatable-list" v-for="(item, index) in history_detail_arr" :key="index">
+                        <div class="history_detail__datatable-td grid-cell name" data-th="調理項目">{{ item.item_name }}</div>
+                        <div class="history_detail__datatable-td grid-cell amount" data-th="份量">{{ item.item_amount }}</div>
+                    </div>
+                    <div class="grid-tablerow history_detail__datatable-total">
+                        <div class="history_detail__datatable-td grid-cell name" data-th="調理項目">調理值</div>
+                        <div class="history_detail__datatable-td grid-cell amount" data-th="份量">{{ history_detail_value_sum }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-ft">
+            </div>
+            <button @click="closePopupDetail" type="button" class="popup-close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+    <notification :show="showNotification" :msgtitle="notificationTitle" :msgcnt="notificationCnt"></notification>
+
+    <div class="dialog" v-if="showDialog && data[currentActionMenuIndex]">
+        <div class="dialog-block">
+            <div class="dialog-title">取消確認</div>
+            <div class="dialog-cnt">您確定要取消運行<button class="link" @click="showDetail(data[currentActionMenuIndex])">{{ data[currentActionMenuIndex].p_name }}</button>嗎?</div>
+            <div class="dialog-btns">
+                <button @click="handleCancel(data[currentActionMenuIndex])" type="button" class="xinyao_btn xinyao_btn-nobg">取消運行</button>
+                <button @click="showDialog = false" type="button" class="xinyao_btn">保留運行</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- /.page_main END  !! -->
+<!-- =========================================================================-->
+<!-- 頁面內容  END  !!-->
+<!-- =========================================================================-->
+
+<% endblock %>
+
+<% block page_script %>
+<script type="module" src="[[JS_PATH]]frontend/history.js?v=[[VERSION]]"></script>
+<% endblock %>

@@ -1,0 +1,36 @@
+.history_detail__datatable {
+    border: 1px solid var(--Gray-04);
+    border-radius: $border-radius-base;
+    // overflow: hidden;
+
+    &-heading  {
+        background-color: var(--Gray-05);
+        @extend .font-body-m;
+        color: var(--Gray-01);
+        border-radius: $border-radius-base $border-radius-base 0 0;
+        overflow: hidden;
+        .history__datatable-td {
+        }
+    }
+
+    &-list {
+        @extend .font-body-m;
+    }
+
+    &-th, &-td {
+        &.amount {
+            text-align: center;
+        }
+    }
+
+    &-total {
+        border-top: 1px solid var(--Gray-04);
+        padding-top: var(--spacing-2x);
+        padding-bottom: var(--spacing-2x);
+
+        .amount {
+            @extend .font-h2;
+            color: var(--sub-color);
+        }
+    }
+}

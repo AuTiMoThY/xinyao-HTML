@@ -1,0 +1,107 @@
+<% set page_title = "挑選中調理帖" %>
+<% extends "_layout.njk" %>
+
+<% block page_head %>
+<script>
+    const currentMenuItem = 'cart';
+
+</script>
+<% endblock %>
+
+<% block content %>
+    <!-- =========================================================================-->
+    <!-- 頁面內容  START-->
+    <!-- =========================================================================-->
+    <main class="page_main page-cart" id="cart">
+        <% include "../pages_templates/_searchbar.njk" %>
+
+        <div class="page_main-container">
+            <h1 class="page_main-title txt-main-color">挑選中調理帖</h1>
+            <div class="cart__wrap">
+                <div class="cart-bd row-2-parts">
+                    <div class="cart-col order_info">
+                        <div class="title">訂單資訊</div>
+                        <div class="hr"></div>
+                        <input-field label="調理帖名稱" placeholder="請輸入調理帖名稱" id="p_name" v-model="p_name" :error="fieldErrors.p_name"></input-field>
+                        <select-field label="調理帖運行時數" id="p_time" v-model="p_time" :options="p_time_options" :error="fieldErrors.p_time"></select-field>
+                        <!-- <input-field label="姓名" placeholder="請輸入您的姓名" id="u_name" v-model="u_name" :error="fieldErrors.u_name"></input-field>
+                        <input-field label="居住地址" placeholder="請輸入居住地址" id="u_addr" v-model="u_addr" :error="fieldErrors.u_addr"></input-field>
+                        <input-field label="電話" placeholder="請輸入電話號碼" id="u_phone" v-model="u_phone" :error="fieldErrors.u_phone"></input-field> -->
+
+                    </div>
+                    <div class="cart-col cart_info grid-table">
+                        <div class="cart_info-heading grid-tablerow">
+                            <div class="cart_info-th grid-cell name">調理項目</div>
+                            <div class="cart_info-th grid-cell amount">份量</div>
+                            <div class="cart_info-th grid-cell action">操作</div>
+                        </div>
+                        <div class="grid-tablerow cart_info-no_data" v-if="isNodata"> 尚無調理項目 </div>
+                        <div class="grid-tablerow cart_info-list" v-for="(item, index) in selectedItems" :key="index">
+                            <div class="cart_info-td grid-cell name" data-th="調理項目">{{ item.name + (item.part ? ' (' + item.part + ')' : '') }}</div>
+                            <div class="cart_info-td grid-cell amount" data-th="份量">
+                                <amount-field v-model="item.amount" @amount-changed="updateSelectedItems"></amount-field>
+                            </div>
+                            <div class="cart_info-td grid-cell action" data-th="操作">
+                                <button type="button" class="action_btn" @click="removeItem(index)">
+                                    <svg data-src="[[IMG_PATH]]icon-delete.svg"></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="grid-tablerow cart_info-list-error" v-if="isOverItemsNum">
+                            <div class="cart_info-td grid-cell error" style="grid-column: span 3;">
+                                一帖調理帖最多5種心藥 ({{selectedItems.length}}/5)
+                            </div>
+                        </div>
+                        <div class="grid-tablerow cart_info-tip">
+                            <div class="cart_info-td grid-cell tip" style="grid-column: span 3;">
+                                <div class="tip-title">小提醒</div>
+                                <div class="tip-cnt">
+                                    <ul>
+                                        <li>一帖調理帖最多5種心藥。</li>
+                                        <li>總調理值最多10點。</li>
+                                        <li>花費點數依照調理帖運行時數而定，1小時=1點。</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-tablerow cart_info-total">
+                            <div class="cart_info-td grid-cell total" style="grid-column: span 3;">
+                                <div class="total-row">
+                                    <div class="title">調理值</div>
+                                    <div class="txt">
+                                        <span class="error" v-if="isOverAmountSum">總調理值最多10點</span>
+                                        <b>{{amount_sum}}</b> / 10
+                                    </div>
+                                </div>
+                                <div class="total-row">
+                                    <div class="title">花費點數</div>
+                                    <div class="txt"><b>{{p_time}}</b></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="cart-ft">
+                    <button @click="addToFav" type="button" class="xinyao_btn xinyao_btn-nobg" :disabled="isDisabled">加入常用</button>
+                    <button @click="sendCart" type="button" class="xinyao_btn" :disabled="isDisabled">立即調理</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 通知元件 (notification) -->
+        <!-- dist\assets\js\vue-components.js -->
+        <notification :show="showNotification" :msgtitle="notificationTitle" :msgcnt="notificationCnt"></notification>
+
+    </main>
+
+    <!-- /.page_main END  !! -->
+    <!-- =========================================================================-->
+    <!-- 頁面內容  END  !!-->
+    <!-- =========================================================================-->
+
+<% endblock %>
+
+<% block page_script %>
+<script type="module" src="[[JS_PATH]]frontend/cart.js?v=[[VERSION]]"></script>
+<% endblock %>

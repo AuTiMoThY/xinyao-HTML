@@ -1,0 +1,67 @@
+<% set page_title = "使用者登入" %>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+    <head>
+    <% include "../pages_templates/_head.njk" %>
+    </head>
+
+    <body class="">
+        <!-- =========================================================================-->
+        <!-- 頁面內容  START-->
+        <!-- =========================================================================-->
+        <main class="page_main page-login" id="loginApp">
+            <div class="brand" style="background-image: url([[IMG_PATH]]login-brand-2x.jpg);"></div>
+            <div class="header-mb" style="background-image: url([[IMG_PATH]]login-header.jpg);"></div>
+            <div class="login_wrap">
+                <h1 class="title svg-text">
+                    <span class="txt">心藥系統</span>
+                    <svg data-src="[[IMG_PATH]]text-XinYaoXiTong.svg"></svg>
+                </h1>
+                <div class="login_block">
+                    <!-- @submit是Vue中的事件綁定語法，它等同於v-on:submit。這種語法用於將Vue方法綁定到DOM事件上。 -->
+                    <!-- .prevent是一個事件修飾符，它用於自動調用event.preventDefault()方法。這阻止了事件的默認行為，對於submit事件來說，就是防止表單提交後的頁面重新加載。 -->
+                    <!-- login($event)是綁定到此submit事件的方法 ( dist\assets\js\frontend\login.js ) -->
+                    <form class="xinyao_frm login_frm" @submit.prevent="login($event)" >
+                        <div class="xinyao_frm-bd">
+                            <section class="form-group row">
+                                <div class="col-12">
+                                    <!-- input text元件 -->
+                                    <!-- dist\assets\js\vue-components.js -->
+                                    <input-field label="帳號" id="user_id" v-model="user_id" :isrequired="1" placeholder="請輸入手機號碼" :error="fieldErrors.user_id"></input-field>
+                                </div>
+                            </section>
+                            <section class="form-group row">
+                                <div class="col-12">
+                                    <!-- input password元件 -->
+                                    <!-- dist\assets\js\vue-components.js -->
+                                    <password-field label="密碼" id="user_pw" v-model="user_pw" :isrequired="1" placeholder="請輸入密碼" :error="fieldErrors.user_pw"></password-field>
+                                </div>
+                            </section>
+                            <!-- 顯示錯誤訊息 -->
+                            <div class="frm-error txt-danger text-center" v-if="frmError" v-html="frmError"></div>
+                        </div>
+                        <div class="xinyao_frm-ft">
+                            <!-- button submit 元件 -->
+                            <!-- dist\assets\js\vue-components.js -->
+                            <submit-btn default_txt="登入" sending_txt="登入中..." :isdisabled="isdisabled"></submit-btn>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <!-- /.page_main END  !! -->
+        <!-- =========================================================================-->
+        <!-- 頁面內容  END  !!-->
+        <!-- =========================================================================-->
+
+        <script type="text/javascript" src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js" async></script>
+        <!-- script -->
+        <script src="[[JS_PATH]]script.js?v=[[VERSION]]"></script>
+        <script type="module" src="[[JS_PATH]]frontend/login.js?v=[[VERSION]]"></script>
+
+    </body>
+
+</html>

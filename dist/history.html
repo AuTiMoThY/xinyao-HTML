@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="zh-Hant">
+    <head>
+        <title>調理帖紀錄 | 佛印山心藥系統</title>
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Cache-Control" content="no-store" />
+
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta name="robots" content="noindex,nofollow" />
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <!-- 讓手機不判斷它是電話號碼變顏色-->
+        <meta name="format-detection" content="telephone=no" />
+
+        <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png" />
+        <link rel="manifest" href="./favicon/site.webmanifest" />
+        <link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#dbdcdc" />
+        <meta name="theme-color" content="#ffffff" />
+
+        <!-- google font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap"
+            rel="stylesheet" />
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer" />
+        <!-- <link rel="stylesheet" href="https://npmcdn.com/flatpickr/dist/flatpickr.min.css"> -->
+        <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
+
+        <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
+        <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
+
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/vue-demi"></script>
+        <script src="https://unpkg.com/pinia"></script>
+
+        <script>
+            const baseUrl =
+                window.location.protocol +
+                "//" +
+                window.location.hostname +
+                (window.location.port ? ":" + window.location.port : "") +
+                "/";
+            console.log(baseUrl);
+        </script>
+
+        <link rel="stylesheet" href="./assets/css/style.css?v=20240414" />
+
+        <!-- ====================== -->
+        <!-- ===  調理帖紀錄(history)頁面專用script === -->
+        <script>
+            const currentMenuItem = "history";
+            // 這邊示意:
+            // 撈出的資料，以JSON格式儲存在 historyData
+            const historyData = [
+                {
+                    status: "等待中",
+                    order_num: "20231226134755",
+                    p_name: "李OO的調理帖",
+                    p_value: "4",
+                    p_time: "1",
+                    p_point: "1",
+                    billing_date: "2023/12/24",
+                    run_date: "",
+                    u_name: "李OO",
+                    u_addr: "台中市南屯區",
+                    u_phone: "0912345678",
+                    p_detail: [
+                        {
+                            item_name: "莫名恐懼 (頭面部)",
+                            item_amount: "1",
+                        },
+                        {
+                            item_name: "莫名恐懼",
+                            item_amount: "1",
+                        },
+                        {
+                            item_name: "小膽怕怕 (右腳掌)",
+                            item_amount: "1",
+                        },
+                    ],
+                },
+                {
+                    status: "運行中",
+                    order_num: "20231226134755",
+                    p_name: "王XX的調理帖",
+                    p_value: "3",
+                    p_time: "1",
+                    p_point: "1",
+                    billing_date: "2023/12/24",
+                    run_date: "2023/12/26 10:15",
+                    u_name: "王XX",
+                    u_addr: "台北市中山區",
+                    u_phone: "0912345678",
+                    p_detail: [
+                        {
+                            item_name: "莫名恐懼 (頭面部)",
+                            item_amount: "1",
+                        },
+                        {
+                            item_name: "莫名恐懼",
+                            item_amount: "1",
+                        },
+                        {
+                            item_name: "小膽怕怕 (右腳掌)",
+                            item_amount: "1",
+                        },
+                    ],
+                },
+                {
+                    status: "已取消",
+                    order_num: "20231226134755",
+                    p_name: "調理帖名稱",
+                    p_value: "4",
+                    p_time: "1",
+                    p_point: "1",
+                    billing_date: "2023/12/20",
+                    run_date: "",
+                    u_name: "林XO",
+                    u_addr: "澎湖縣馬公市",
+                    u_phone: "0912345678",
+                    p_detail: [
+                        {
+                            item_name: "莫名恐懼 (頭面部)",
+                            item_amount: "1",
+                        },
+                        {
+                            item_name: "莫名恐懼",
+                            item_amount: "1",
+                        },
+                        {
+                            item_name: "小膽怕怕 (右腳掌)",
+                            item_amount: "1",
+                        },
+                    ],
+                },
+                {
+                    status: "已完成",
+                    order_num: "20231226134755",
+                    p_name: "調理帖名稱666",
+                    p_value: "3",
+                    p_time: "1",
+                    p_point: "1",
+                    billing_date: "2023/12/19",
+                    run_date: "2023/12/20 10:15",
+                    u_name: "劉OO",
+                    u_addr: "台北市北投區",
+                    u_phone: "0912345678",
+                    p_detail: [
+                        {
+                            item_name: "莫名恐懼 (頭面部)",
+                            item_amount: "1",
+                        },
+                        {
+                            item_name: "莫名恐懼",
+                            item_amount: "1",
+                        },
+                        {
+                            item_name: "小膽怕怕 (右腳掌)",
+                            item_amount: "1",
+                        },
+                    ],
+                },
+            ];
+        </script>
+    </head>
+
+    <body>
+        <div class="xinyao_goTop" id="goTop">
+            <a class="xinyao_goTop-inner" href="javascript:;" @click.prevent="goToTop">
+                <i class="fa-solid fa-arrow-up"></i>
+            </a>
+        </div>
+        <!-- ========================================================================= -->
+        <!-- .body_wrap  START-->
+        <div class="body_wrap">
+            <aside class="site_aside" id="Aside">
+                <div class="site_aside-inner">
+                    <div class="site_aside-hd">
+                        <div class="site_aside-hd-top">
+                            <div class="member_info">
+                                <div class="icon">
+                                    <img src="./assets/images/member-icon.png" alt="" />
+                                </div>
+                                <div class="txt">
+                                    <b class="name">潘XX</b>
+                                    <div class="phone font-body-s">0912-345-678</div>
+                                </div>
+                            </div>
+                            <div class="ctrl-btns">
+                                <button class="ctrl-btn" @click="handleSearch">
+                                    <img src="./assets/images/icon-search.svg" alt="" v-if="!isOpenSearch" />
+                                    <img src="./assets/images/icon-close.svg" alt="" v-if="isOpenSearch" />
+                                </button>
+                                <a class="ctrl-btn" href="javascript:;"
+                                    ><img src="./assets/images/icon-home.svg" alt=""
+                                /></a>
+                            </div>
+                        </div>
+                        <div class="hr" v-if="isHomePage"></div>
+                        <div class="member_point">
+                            <div class="member_point-inner">
+                                <div class="font-h3 txt-main-color">1234點</div>
+                                <small class="font-note">2024/12/31 到期</small>
+                            </div>
+                        </div>
+                        <div
+                            class="site_menu-item"
+                            :class="{ 'js-highlight': menuStore.highlightedMenuItem === 'cart' }">
+                            <a class="inner" href="./cart.html">
+                                <span class="txt">挑選中調理帖</span>
+                                <span class="line"></span>
+                                <span class="cart_num">{{cart_num}}</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hr"></div>
+                    <div class="site_aside-bd">
+                        <div class="site_menu__wrap">
+                            <nav class="site_menu">
+                                <strong class="site_menu-title font-h3 txt-Gray-01">新增</strong>
+                                <ul class="site_menu-list">
+                                    <li
+                                        class="site_menu-item"
+                                        :class="{ 'js-highlight': menuStore.highlightedMenuItem === 'xinyao-2' }">
+                                        <a class="inner font-body-m" href="./xinyao-2.html">緊張應變</a>
+                                    </li>
+                                    <li
+                                        class="site_menu-item"
+                                        :class="{ 'js-highlight': menuStore.highlightedMenuItem === 'xinyao-3' }">
+                                        <a class="inner font-body-m" href="./xinyao-3.html">症狀初期</a>
+                                    </li>
+                                    <li
+                                        class="site_menu-item"
+                                        :class="{'open-sublist': menuStore.highlightedMenuItem === 'xinyao-1'}">
+                                        <div class="inner font-body-m">心藥目錄</div>
+                                        <ul class="sublist">
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">恐懼</div>
+                                                    <div class="note">
+                                                        莫名恐懼 / 抓狂暴衝 / 小膽怕怕 / 過度擔憂 / 驚慌失措
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">茫然</div>
+                                                    <div class="note">
+                                                        舉棋不定 / 挫折消沉 / 絕望重鬱 / 怠惰沒勁 / 優柔寡斷
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">妄念</div>
+                                                    <div class="note">
+                                                        重複犯錯 / 妄想未來 / 沉溺過去 / 不時憂鬱 / 失控思緒 / 生活無趣
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">寂寞</div>
+                                                    <div class="note">漫無目標 / 表現存在 / 性急浮躁 / 孤傲不群</div>
+                                                </a>
+                                            </li>
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">敏感</div>
+                                                    <div class="note">
+                                                        表面快樂 / 唯諾服務 / 怨瞋復仇 / 生活驟變 / 佔有依賴
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">負面</div>
+                                                    <div class="note">
+                                                        過度細節 / 喪失自信 / 罪己自責 / 驚嚇創傷 / 悲苦折磨 / 怨天尤人
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">重擔</div>
+                                                    <div class="note">
+                                                        身心耗竭 / 老牛拖車 / 責任硬撐 / 標準苛刻 / 嚴格律己 / 工作狂熱
+                                                        / 獨裁支配
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="subitem">
+                                                <a href="./xinyao-1.html" class="inner">
+                                                    <div class="txt">靈性及業力</div>
+                                                    <div class="note">好運富足 / 光明灌頂 / 靈性加持</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="hr"></div>
+                            <nav class="site_menu">
+                                <strong class="site_menu-title font-h3 txt-Gray-01">管理</strong>
+                                <ul class="site_menu-list">
+                                    <li
+                                        class="site_menu-item"
+                                        :class="{ 'js-highlight': menuStore.highlightedMenuItem === 'history' }">
+                                        <a class="inner" href="./history.html">調理帖紀錄</a>
+                                    </li>
+                                    <li
+                                        class="site_menu-item"
+                                        :class="{ 'js-highlight': menuStore.highlightedMenuItem === 'favourite' }">
+                                        <a class="inner" href="./favourite.html">常用調理帖</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="site_aside-ft">
+                        <a href="./" class="xinyao_btn">
+                            <div class="icon">
+                                <svg data-src="./assets/images/icon-logout.svg"></svg>
+                            </div>
+                            <div class="txt">登出</div>
+                        </a>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- =========================================================================-->
+            <!-- 頁面內容  START-->
+            <!-- =========================================================================-->
+            <main class="page_main page-history" id="history">
+                <div class="search_bar" :class="{'js-open': isOpenSearch}">
+                    <div class="search_bar-field">
+                        <div class="search_bar-icon">
+                            <svg data-src="./assets/images/icon-search.svg"></svg>
+                        </div>
+                        <input type="text" class="search_bar-input" placeholder="搜尋調理項目" />
+                    </div>
+                    <div class="search_bar-btn">
+                        <a class="xinyao_btn" type="button" href="./search.html">搜尋</a>
+                    </div>
+                </div>
+                <div class="hr" v-if="!isMobile"></div>
+
+                <div class="page_main-container">
+                    <h1 class="page_main-title txt-main-color">調理帖紀錄</h1>
+                    <div class="history__datatable grid-table">
+                        <div class="history__datatable-heading grid-tablerow">
+                            <div class="history__datatable-td grid-cell status">狀態</div>
+                            <div class="history__datatable-td grid-cell order_num">單號</div>
+                            <div class="history__datatable-td grid-cell p_name">名稱</div>
+                            <div class="history__datatable-td grid-cell p_value">調理值</div>
+                            <div class="history__datatable-td grid-cell p_time">時效</div>
+                            <div class="history__datatable-td grid-cell p_point">花費點數</div>
+                            <div class="history__datatable-td grid-cell billing_date">開單日期</div>
+                            <div class="history__datatable-td grid-cell run_date">運行日期</div>
+                            <div class="history__datatable-td grid-cell action">操作</div>
+                        </div>
+                        <div class="history__datatable-data grid-tablerow" v-for="(item, index) in data" :key="index">
+                            <div
+                                class="history__datatable-td grid-cell status"
+                                :class="setStatusClass(item)"
+                                data-th="狀態">
+                                {{item.status}}
+                            </div>
+                            <div class="history__datatable-td grid-cell order_num" data-th="單號">
+                                {{item.order_num}}
+                            </div>
+                            <div class="history__datatable-td grid-cell p_name" data-th="名稱">{{item.p_name}}</div>
+                            <div class="history__datatable-td grid-cell p_value" data-th="調理值">{{item.p_value}}</div>
+                            <div class="history__datatable-td grid-cell p_time" data-th="時效">{{item.p_time}}小時</div>
+                            <div class="history__datatable-td grid-cell p_point" data-th="花費點數">
+                                {{item.p_point}}
+                            </div>
+                            <div class="history__datatable-td grid-cell billing_date" data-th="開單日期">
+                                {{item.billing_date}}
+                            </div>
+                            <div class="history__datatable-td grid-cell run_date" data-th="運行日期">
+                                {{item.run_date}}
+                            </div>
+                            <div class="history__datatable-td grid-cell action" data-th="操作">
+                                <button class="action_btn" @click="toggleMenu(index)">
+                                    <svg data-src="./assets/images/icon-dropdownmenu.svg"></svg>
+                                </button>
+                                <div class="action_menu" v-show="currentActionMenuIndex === index">
+                                    <button class="action_menu-btn" @click="showDetail(item)">
+                                        <span class="icon">
+                                            <svg data-src="./assets/images/icon-info.svg"></svg>
+                                        </span>
+                                        <span class="txt">調理帖明細</span>
+                                    </button>
+                                    <template v-if="item.status != '已完成' && item.status != '已取消'">
+                                        <div class="hr"></div>
+                                        <button class="action_menu-btn" @click="openCancel">
+                                            <span class="icon">
+                                                <svg data-src="./assets/images/icon-cancel.svg"></svg>
+                                            </span>
+                                            <span class="txt">取消運行</span>
+                                        </button>
+                                    </template>
+                                    <template v-if="item.status !== '等待中' && item.status !== '運行中'">
+                                        <div class="hr"></div>
+                                        <button class="action_menu-btn" @click="replay(item)">
+                                            <span class="icon">
+                                                <svg data-src="./assets/images/icon-replay.svg"></svg>
+                                            </span>
+                                            <span class="txt">再次運行</span>
+                                        </button>
+                                    </template>
+                                    <div class="hr"></div>
+                                    <button class="action_menu-btn" @click="addFav">
+                                        <span class="icon">
+                                            <svg data-src="./assets/images/icon-kid_star.svg"></svg>
+                                        </span>
+                                        <span class="txt">加入常用</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-if="showPopupDetail" class="popup popup_detail">
+                    <div class="popup-block">
+                        <div class="popup-hd">
+                            <b class="popup-title txt-main-color">調理帖明細</b>
+                        </div>
+                        <div class="popup-bd">
+                            <div class="history_detail__datatable grid-table">
+                                <div class="history_detail__datatable-heading grid-tablerow">
+                                    <div class="history_detail__datatable-th grid-cell name">調理項目</div>
+                                    <div class="history_detail__datatable-th grid-cell amount">份量</div>
+                                </div>
+                                <div
+                                    class="grid-tablerow history_detail__datatable-list"
+                                    v-for="(item, index) in history_detail_arr"
+                                    :key="index">
+                                    <div class="history_detail__datatable-td grid-cell name" data-th="調理項目">
+                                        {{ item.item_name }}
+                                    </div>
+                                    <div class="history_detail__datatable-td grid-cell amount" data-th="份量">
+                                        {{ item.item_amount }}
+                                    </div>
+                                </div>
+                                <div class="grid-tablerow history_detail__datatable-total">
+                                    <div class="history_detail__datatable-td grid-cell name" data-th="調理項目">
+                                        調理值
+                                    </div>
+                                    <div class="history_detail__datatable-td grid-cell amount" data-th="份量">
+                                        {{ history_detail_value_sum }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="popup-ft"></div>
+                        <button @click="closePopupDetail" type="button" class="popup-close">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                <notification
+                    :show="showNotification"
+                    :msgtitle="notificationTitle"
+                    :msgcnt="notificationCnt"></notification>
+
+                <div class="dialog" v-if="showDialog && data[currentActionMenuIndex]">
+                    <div class="dialog-block">
+                        <div class="dialog-title">取消確認</div>
+                        <div class="dialog-cnt">
+                            您確定要取消運行<button class="link" @click="showDetail(data[currentActionMenuIndex])">
+                                {{ data[currentActionMenuIndex].p_name }}</button
+                            >嗎?
+                        </div>
+                        <div class="dialog-btns">
+                            <button
+                                @click="handleCancel(data[currentActionMenuIndex])"
+                                type="button"
+                                class="xinyao_btn xinyao_btn-nobg">
+                                取消運行
+                            </button>
+                            <button @click="showDialog = false" type="button" class="xinyao_btn">保留運行</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- /.page_main END  !! -->
+            <!-- =========================================================================-->
+            <!-- 頁面內容  END  !!-->
+            <!-- =========================================================================-->
+        </div>
+        <!-- /.body_wrap  END  !!-->
+        <!-- =========================================================================-->
+
+        <script src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js" async></script>
+        <script src="./assets/js/eventBus.js?v=20240414"></script>
+        <script src="./assets/js/script.js?v=20240414"></script>
+        <script type="module" src="./assets/js/frontend/aside.js?v=20240414"></script>
+
+        <script type="module" src="./assets/js/frontend/history.js?v=20240414"></script>
+    </body>
+</html>

@@ -1,0 +1,172 @@
+$btn_main_color: "main-color";
+$btn_hover_color: "sub-color";
+
+.#{$PROJECT_NAME}_btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    border-radius: $border-radius-field;
+    border: 1px solid color($btn_main_color);
+    background-color: rgba(color($btn_main_color), 1);
+
+    padding: 8px 32px;
+
+    box-shadow: 0 0 0 rgba(#000, 0);
+    transition: background-color 0.3s ease-in-out,
+        box-shadow 0.3s ease-in-out,
+        color 0.3s ease-in-out,
+        border 0.3s ease-in-out,
+        text-shadow 0.3s ease-in-out;
+
+    color: #fff;
+    text-shadow: 0 0 4px #{rgba(color("Gray-06"), 0.5)};
+    // @include txt-("Btn");
+
+    cursor: pointer;
+
+    @include rwd-mobile {
+        padding: 8px;
+    }
+    &:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at calc(var(--x) * 1px) calc(var(--y) * 1px), hsla(0, 0%, 100%, 0.5), transparent 5vmin),
+            transparent;
+        background-attachment: fixed;
+        pointer-events: none;
+        mask:
+            linear-gradient(white, white) 50% 0 / 100% 2px no-repeat,
+            linear-gradient(white, white) 50% 100% / 100% 2px no-repeat,
+            linear-gradient(white, white) 0 50% / 2px 100% no-repeat,
+            linear-gradient(white, white) 100% 50% / 2px 100% no-repeat;
+    }
+
+    &:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at calc(var(--x) * 1px) calc(var(--y) * 1px), hsla(0, 0%, 100%, 0.15), transparent 5vmin);
+        background-attachment: fixed;
+        opacity: var(--active, 0);
+        transition: opacity 0.2s;
+        pointer-events: none;
+    }
+
+
+    &:hover,
+    .js-hover & {
+        --active: 1;
+        text-decoration: none;
+
+        border: 1px solid color($btn_hover_color);
+        background-color: color($btn_hover_color);
+        // color: lighten(color($btn_main_color), 70%);
+        // text-shadow: 0 0 4px rgba(#fff, 0.6);
+        // box-shadow: 0px 8px 20px rgba(color($btn_main_color), 0.5);
+    }
+
+
+    .icon {
+        @include wh(16);
+        svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        path {
+            fill: currentColor;
+        }
+    }
+
+    .txt {
+
+    }
+
+
+
+    &:active {
+        transform: translate(1px, 1px);
+        box-shadow: $boxShadowActive1;
+    }
+
+    &:disabled {
+        color: color("Gray-03");
+        border: none;
+        background-color: color("Gray-05");
+        cursor: not-allowed;
+    }
+
+    // @each $name,
+    // $color in $colors {
+    //     &-#{$name} {
+    //         @include btn_setting(color("#{$name}"), #fff);
+    //         // color: $color;
+    //     }
+    // }
+
+    // @each $name,
+    // $color in $colors {
+    //     &-#{$name} {
+    //         &.#{$PROJECT_NAME}_btn-nobg {
+    //             background-color: transparent;
+    //             color: $color;
+
+    //             &:hover,
+    //             .js-hover & {
+    //                 background-color: lighten($color, 10);
+    //                 color: #000;
+    //             }
+    //         }
+    //     }
+
+    // }
+
+
+    &-nobg {
+        background-color: transparent;
+        color: color("main-color");
+
+        &:hover,
+        .js-hover & {
+            // border-color: color("Brown");
+            // background-color: color("Brown");
+            color: #fff;
+
+        }
+
+        .icon {
+            path {
+                fill: color($btn_main_color);
+            }
+        }
+
+        &:disabled {
+            color: color("Gray-03");
+            border: 1px solid color("Gray-04");
+            background-color: transparent;
+            cursor: not-allowed;
+        }
+    }
+
+
+
+    &-white {
+        border-color: transparent;
+        background-color: #fff;
+        color: color($btn_main_color);
+        box-shadow: 0px 8px 20px rgba(20, 162, 209, 0);
+
+        &:hover {
+            background-color: #fff;
+            color: color($btn_main_color);
+            box-shadow: 0px 8px 20px rgba(20, 162, 209, 0.5);
+        }
+    }
+}

@@ -1,0 +1,46 @@
+.notification {
+    @include popup_base(500);
+    &-block {
+        @include rwd-mobile {
+            width: calc(100% - 32px);
+        }
+    }
+
+    &-block {
+        // justify-content: center;
+        align-items: center;
+    }
+
+    &-icon {
+        // display: flex;
+        // justify-content: center;
+    }
+
+    &-title {
+        color: color(main-color);
+        @extend .font-h1;
+    }
+    &-cnt {
+        color: color(Gray-02);
+        @extend .font-body-m;
+
+        @include rwd-mobile {
+            text-align: center;
+        }
+
+        .link {
+            display: inline-block;
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+
+            border: none;
+            background-color: transparent;
+
+            color: color(sub-color);
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

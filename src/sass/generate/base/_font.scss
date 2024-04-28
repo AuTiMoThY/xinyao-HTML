@@ -1,0 +1,19 @@
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+@each $name, $value in $font {
+    .font-#{$name} {
+        font-size: var(--font-#{$name});
+        font-weight: #{map-get($value, 'fw' )};
+        letter-spacing: #{map-get($value, 'ls' )};
+        line-height: #{map-get($value, 'lh' )};
+    }
+
+}
+
+@each $name, $color in $color {
+	.txt-#{$name} {
+		color: $color;
+	}
+}

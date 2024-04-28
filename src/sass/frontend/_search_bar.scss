@@ -1,0 +1,69 @@
+.search_bar {
+    display: flex;
+    gap: var(--spacing-2x);
+    padding: var(--spacing-2x);
+
+    .page-cart & {
+        display: none;
+    }
+
+    @include rwd-mobile {
+        flex-direction: column;
+        position: fixed;
+        top: 78px;
+        z-index: 9999;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 16px 16px #{rgba(color(main-color), 0.3)};
+
+        max-height: 0;
+        padding: 0;
+        overflow: hidden;
+
+        transition: all 0.3s ease-in-out;
+
+        &.js-open {
+            display: flex;
+            max-height: 150px;
+            padding: var(--spacing-2x);
+        }
+    }
+
+    &-field {
+        flex: 1 1 auto;
+
+        display: flex;
+        gap: var(--spacing-2x);
+        padding: var(--spacing-2x);
+
+        border: 1px solid var(--main-color);
+        border-radius: $border-radius-field;
+    }
+
+    &-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    &-input {
+        flex: 1;
+        padding: 0;
+        border: none;
+        width: 100%;
+    }
+
+    &-btn {
+        flex: 0 0 160px;
+
+        @include rwd-mobile {
+            flex: 1;
+        }
+    }
+
+    .xinyao_btn {
+        width: 100%;
+        min-height: 100%;
+        // padding-left: var(--spacing-4x);
+        // padding-right: var(--spacing-4x);
+    }
+}

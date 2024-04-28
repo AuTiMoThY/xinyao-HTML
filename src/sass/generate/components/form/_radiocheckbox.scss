@@ -1,0 +1,148 @@
+// rcx(radiocheckbox)
+// Version 1.2
+// Update 20211104
+// Author AuOzzy
+
+// 
+$rcx-mark-color: (
+    "default": #f9f9fa,
+    "active": #878787
+);
+$rcx-hover-color: #f9f9fa;
+$rcx-txt-color: #5c5c5c;
+.#{$PROJECT_NAME}_rcx {
+	display: flex;
+
+	// width: 100%;
+	height: 100%;
+	align-items: center;
+
+	label {
+        margin-bottom: 0;
+    }
+
+	&.form-control {
+		padding: 16px 24px;
+	}
+
+	&-label {
+		margin-bottom: 0;
+		cursor: pointer;
+		
+
+		&-inner {
+			// margin-right: 1.2rem;
+			background-color: transparent;
+			padding: 0.25rem;
+			border-radius: 5px;
+
+			display: flex;
+			align-items: center;
+
+			transition: $transition-base;
+		}
+		
+		.choicemark {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			
+			@include wh(20);
+			// border-radius: 5px;
+			border: 1px solid map-get($rcx-mark-color, "active");
+			
+			// margin-right: 1rem;
+			transition: all 0.3s ease-in-out;
+			
+			color: map-get($rcx-mark-color, "default");
+			&:before {
+				@include psudoClass;
+				@include wh(70%, 40%);
+				border-bottom: 2px solid map-get($rcx-mark-color, "active");
+				border-left: 2px solid map-get($rcx-mark-color, "active");
+				transform: rotate(-45deg) translate(10% , -10%) scale(0);
+
+				opacity: 0;
+
+				transition: all 0.3s $easing3;
+			}
+
+		}
+
+		.txt {
+			padding-left: 1rem;
+			color: $rcx-txt-color;
+
+			transition: $transition-base;
+
+			// word-break: keep-all;
+			// white-space: nowrap;
+		}
+
+		&:hover {
+			.#{$PROJECT_NAME}_rcx-label-inner  {
+
+				background-color: $rcx-hover-color;
+			}
+		}
+	}
+
+	&-input {
+		opacity: 0;
+		display: none;
+
+		&:checked {
+			~ .#{$PROJECT_NAME}_rcx-label-inner {
+				background-color: $rcx-hover-color;
+				.choicemark {
+					background-color: map-get($rcx-mark-color, "active");
+
+					&:before {
+						border-color: map-get($rcx-mark-color, "default");
+						transform: rotate(-45deg) translate(10% , -10%) scale(1);
+						opacity: 1;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+// .#{$PROJECT_NAME}_rcx {
+// 	&-label {
+// 		.choicemark {
+//             @include circle(16);
+//             color: map-get($rcx-mark-color, "default");
+// 			&:before {
+// 				background-color: map-get($rcx-mark-color, "default");
+//                 transform: scale(0);
+//             }
+// 		}
+// 		.txt {
+//             padding-left: 0.5rem;
+//             color: $rcx-txt-color;
+//         }
+// 		&:hover { }
+// 	}
+//     &-input {
+// 		&:checked {
+// 			+ .choicemark {
+//                 color: map-get($rcx-mark-color, "active");
+// 				&:before {
+//                     opacity: 1;
+//                     @include circle(8);
+//                     background-color: currentColor;
+//                     border: none;
+//                     transform: scale(1);
+//                 }
+// 			}
+// 		}
+// 	}
+// }
+
+
+
+// log
+// v 1.1: ADD  .#{$PROJECT_NAME}_rcx-label-inner ( wrapper .choicemark, .txt )

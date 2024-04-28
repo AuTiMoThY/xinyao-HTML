@@ -1,0 +1,71 @@
+.popup {
+    @include popup_base(800);
+    &-block {
+        @include rwd-mobile {
+            width: calc(100% - 32px);
+            padding: var(--spacing-2x);
+        }
+    }
+
+    &-hd {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-1x);
+        align-items: center;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: 2.4px;
+    }
+
+    &-bd {
+        overflow-y: auto;
+    }
+
+    &-ft {
+        display: flex;
+        gap: var(--spacing-2x);
+
+        .xinyao_btn {
+            flex: 1;
+        }
+    }
+
+    &-close {
+        background-color: transparent;
+        border: none;
+
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 45px;
+        height: 45px;
+        border-radius: $border-radius-base;
+
+        color: var(--Gray-03);
+        
+        transition: all .3s ease-in-out;
+
+        &:hover {
+            background-color: var(--Gray-04);
+            color: var(--main-color);
+        }
+
+        @include rwd-mobile {
+            top: 0.5rem;
+            right: 0.5rem;
+        }
+    }
+
+    &-title {
+        @extend .font-h1;
+
+        @include rwd-mobile {
+            font-size: var(--font-h3);
+            font-weight: #{map-get(map-get($font, 'h3'), 'fw' )};
+            letter-spacing: #{map-get(map-get($font, 'h3'), 'ls' )};
+            line-height: #{map-get(map-get($font, 'h3'), 'lh' )};
+        }
+    }
+}

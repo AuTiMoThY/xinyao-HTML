@@ -1,0 +1,62 @@
+.grid-table {
+    width: 100%;
+    border: 1px solid var(--Gray-04);
+    border-radius: $border-radius-base;
+
+    @include rwd-mobile {
+        border: none;
+        border-radius: 0;
+    }
+}
+
+
+.grid-tablerow {
+    display: grid;
+    gap: var(--spacing-4x);
+    align-items: center;
+    padding: var(--spacing-1x) var(--spacing-2x);
+
+    transition: all 0.3s ease-in-out;
+
+
+
+    &:hover {
+        background-color: var(--Gray-05);
+    }
+    
+    .cart_info & {
+        grid-template-columns: 1fr 120px 50px;
+
+        @include rwd-mobile {
+            grid-template-columns: 1fr 80px 50px;
+        }
+    }
+
+    .history__datatable & {
+        grid-template-columns: 60px 1fr 1fr 60px 60px 80px 1fr 1fr 50px;
+    }
+    .favourite__datatable & {
+        grid-template-columns: 1fr 60px 50px;
+    }
+
+    .history_detail__datatable &, .favourite_detail__datatable & {
+        grid-template-columns: 1fr 50px;
+    }
+
+    &[class*='-heading'] {
+        background-color: var(--Gray-05);
+        @extend .font-body-m;
+        color: var(--Gray-01);
+        border-radius: $border-radius-base $border-radius-base 0 0;
+        overflow: hidden;
+    }
+
+    &[class*='-data'] {
+
+        
+    }
+}
+
+.grid-cell {
+
+}

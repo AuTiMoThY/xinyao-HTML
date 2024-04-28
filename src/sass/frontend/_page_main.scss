@@ -1,0 +1,24 @@
+.page_main {
+    &-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-4x);
+        padding: var(--spacing-4x) var(--spacing-8x) var(--spacing-8x);
+
+        @include rwd-mobile {
+            gap: var(--spacing-2x);
+            padding: var(--spacing-4x) var(--spacing-2x);
+        }
+    }
+
+    &-title {
+        @extend .font-h1;
+        @include rwd-mobile {
+            font-size: var(--font-h3);
+            font-weight: #{map-get(map-get($font, 'h3'), 'fw' )};
+            letter-spacing: #{map-get(map-get($font, 'h3'), 'ls' )};
+            line-height: #{map-get(map-get($font, 'h3'), 'lh' )};
+        }
+    }
+}

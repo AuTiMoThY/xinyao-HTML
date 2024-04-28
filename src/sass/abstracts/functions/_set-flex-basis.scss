@@ -1,0 +1,13 @@
+
+@function calc-gap($gap, $colNum) {
+    @return math.div($gap * ($colNum - 1), $colNum);
+}
+
+@function set-flex-basis($gap, $colNum) {
+    // 计算基准百分比
+    $basis: math.div(100%, $colNum);
+    // 计算间隙
+    $gapWidth: calc-gap($gap, $colNum);
+    // 返回计算后的flex-basis值
+    @return calc(#{$basis} - #{$gapWidth}px);
+}
