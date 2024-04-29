@@ -7,6 +7,7 @@ export const useGlobalStateStore = defineStore('globalState', {
         isOpenSearch: false,
         isOpenMenu: false,
         isMobile: window.matchMedia('(max-width: 768px)').matches,
+        currentMenuItem: ''
     }),
     actions: {
         setSelectedItemsCount(count) {
@@ -21,6 +22,9 @@ export const useGlobalStateStore = defineStore('globalState', {
         toggleMenu() {
             this.isOpenMenu = !this.isOpenMenu;
         },
+        updateCurrentMenuItem(item) {
+            this.currentMenuItem = item;
+        }
     },
 });
 

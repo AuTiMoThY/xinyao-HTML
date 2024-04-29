@@ -135,6 +135,19 @@ $tableName:
         &.action {
             position: relative;
         }
+
+        &.order_num {
+            width: 150px;
+            @include rwd-mobile {
+                width: auto;
+            }
+        }
+        &.p_name {
+            width: 100px;
+            @include rwd-mobile {
+                width: auto;
+            }
+        }
     }
 
     .action_btn {

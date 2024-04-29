@@ -3,6 +3,7 @@ import { useNotification, useOpenSearch } from '../vue-composable.js';
 import { useGlobalStateStore } from '../globalState.js';
 
 const { ref, createApp, computed, onMounted, watchEffect } = Vue;
+const { createPinia } = Pinia;
 const historySetup = {
     components: {
         'amount-field': amountField,
@@ -11,10 +12,10 @@ const historySetup = {
     setup() {
         const { showNotification, notificationTitle, notificationCnt, showNoti, closeNoti } = useNotification();
         const { isOpenSearch } = useOpenSearch();
-
         const globalState = useGlobalStateStore();
         // console.log(globalState.isMobile);
         const isMobile = ref(globalState.isMobile);
+
         const eventBus = window.eventBus;
         const data = ref(historyData);
         const showDialog = ref(false);
@@ -22,11 +23,7 @@ const historySetup = {
         const currentActionMenuIndex = ref(null); // 保存当前打开的菜单的索引
         const history_detail_arr = ref([]);
         const history_detail_value_sum = ref(0);
-        // const history_detail_value_sum = computed(() => {
-        //     if (!showPopupDetail.value) {
-        //         return 0;
-        //     }
-        // });
+
 
         const setStatusClass = (item) => {
             let statusClass = '';
@@ -116,7 +113,9 @@ const historySetup = {
 }
 
 const history = createApp(historySetup);
+const pinia = createPinia();
 history.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('module-')
 }
+history.use(pinia);
 history.mount("#history");

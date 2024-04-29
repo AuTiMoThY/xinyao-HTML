@@ -20,7 +20,11 @@
         <!-- ========================================================================= -->
         <!-- .body_wrap  START-->
         <div class="body_wrap">
-            <% include "_aside.njk" %> <% block content %><% endblock %>
+            <!-- .site_aside  START-->
+            <% include "_aside.njk" %>
+            <!-- /.site_aside  END  !!-->
+            
+            <% block content %><% endblock %>
         </div>
         <!-- /.body_wrap  END  !!-->
         <!-- =========================================================================-->

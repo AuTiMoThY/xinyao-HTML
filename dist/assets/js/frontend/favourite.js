@@ -3,6 +3,7 @@ import { useOpenSearch, useNotification } from '../vue-composable.js';
 import { useGlobalStateStore } from '../globalState.js';
 
 const { ref, createApp, computed, onMounted, watchEffect } = Vue;
+const { createPinia } = Pinia;
 const favouriteSetup = {
     components: {
         'amount-field': amountField,
@@ -18,7 +19,6 @@ const favouriteSetup = {
         const data = ref(favData);
 
         const currentActionMenuIndex = ref(null);
-        // const isOpenSearch = ref(eventBus.state.isOpenSearch);
 
         const favourite_detail_arr = ref([]);
         const favourite_detail_value_sum = ref(0);
@@ -37,9 +37,8 @@ const favouriteSetup = {
             }
         };
 
-
+        // 顯示明細
         const showDetail = (item) => {
-
             showPopupDetail.value = true;
             favourite_detail_arr.value = item.p_detail;
 
@@ -47,6 +46,7 @@ const favouriteSetup = {
             xinyao.log("showDetail item", item.p_detail);
         }
 
+        // 運行調理帖，帶該筆資料到挑選中調理帖頁面
         const playItem = (item) => {
             localStorage.removeItem('replay');
             xinyao.log("replay item", item);
@@ -92,7 +92,9 @@ const favouriteSetup = {
 }
 
 const favourite = createApp(favouriteSetup);
+const pinia = createPinia();
 favourite.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('module-')
 }
+favourite.use(pinia);
 favourite.mount("#favourite");

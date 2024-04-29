@@ -143,10 +143,12 @@
                 <div class="favourite__datatable-td grid-cell p_name" data-th="名稱">{{item.p_name}}</div>
                 <div class="favourite__datatable-td grid-cell p_value" data-th="調理值">{{item.p_value}}</div>
                 <div class="favourite__datatable-td grid-cell action" data-th="操作">
+                    <!-- 點擊後開關操作選單 -->
                     <button class="action_btn" @click="toggleMenu(index)">
                         <svg data-src="[[IMG_PATH]]icon-dropdownmenu.svg"></svg>
                     </button>
                     <div class="action_menu" v-show="currentActionMenuIndex === index">
+                        <!-- 點擊後顯示詳細資訊 -->
                         <button class="action_menu-btn" @click="showDetail(item)">
                             <span class="icon">
                                 <svg data-src="[[IMG_PATH]]icon-info.svg"></svg>
@@ -154,6 +156,7 @@
                             <span class="txt">調理帖明細</span>
                         </button>
                         <div class="hr"></div>
+                        <!-- 點擊後運行 -->
                         <button class="action_menu-btn" @click="playItem(item)">
                             <span class="icon">
                                 <svg data-src="[[IMG_PATH]]icon-play_circle.svg"></svg>
@@ -161,6 +164,7 @@
                             <span class="txt">運行</span>
                         </button>
                         <div class="hr"></div>
+                        <!-- 點擊後移除 -->
                         <button class="action_menu-btn" @click="removeItem(index)">
                             <span class="icon">
                                 <svg data-src="[[IMG_PATH]]icon-delete.svg"></svg>
@@ -172,6 +176,7 @@
             </div>
         </div>
     </div>
+    <!-- 調理帖明細 popup -->
     <div v-if="showPopupDetail" class="popup popup_detail">
         <div class="popup-block">
             <div class="popup-hd ">
@@ -198,7 +203,8 @@
             <button @click="showPopupDetail = false" type="button" class="popup-close"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
-    <!-- <notification :show="showNotification" :msgtitle="notificationTitle" :msgcnt="notificationCnt"></notification> -->
+    
+    <!-- 對話框 -->
     <div class="dialog" v-if="showDialog && data[currentActionMenuIndex]">
         <div class="dialog-block">
             <div class="dialog-title">刪除確認</div>

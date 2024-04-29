@@ -13,25 +13,17 @@ const asideSetup = {
         const menuStore = useMenuStore();
 
         const cart_num = ref(globalState.selectedItemsCount);
-
         const isOpenMenu = ref(eventBus.state.isOpenMenu);
-        // const isOpenSearch = ref(eventBus.state.isOpenSearch);
-        
-        
-        // const isMobile = ref(eventBus.state.isMobile);
         const isMobile = ref(globalState.isMobile);
+        const highlightMenuItem = ref(currentMenuItem);
         
-        // const currentUrl = ref(eventBus.state.currentUrl);
-        const isHomePage = ref(eventBus.state.isHomePage);
-        // console.log(currentUrl);
-        // console.log(baseUrl);
-        
-
+        // 搜尋開關
         const handleSearch = () => {
             eventBus.toggleSearch();
             isOpenSearch.value = eventBus.state.isOpenSearch;
         }
 
+        // 選單開關
         const handleMenu = () => {
             eventBus.toggleMenu();
             isOpenMenu.value = eventBus.state.isOpenMenu;
@@ -53,7 +45,7 @@ const asideSetup = {
                 const sublist = item.querySelector('.sublist');
                 const title = item.querySelector('.inner');
 
-                // 檢查當前項目是否有子列表
+                // 檢查當前項目是否有子列表，有的話加上arrow icon
                 if (sublist && title) {
                     item.classList.add('has-sublist');
                     // 創建 SVG 元素
@@ -67,20 +59,15 @@ const asideSetup = {
                     title.addEventListener('click', () => {
                         // 切換 "open-sublist" 類
                         item.classList.toggle('open-sublist');
-                        // 根據 "open-sublist" 類的存在與否來控制子列表的顯示狀態
-                        // sublist.style.display = item.classList.contains('open-sublist') ? 'block' : 'none';
-
                     });
                 }
             });
 
-            // if (currentUrl === 'http:' + baseUrl) {
-            //     isHomePage.value = true;
-            // }
-
+            // 滾動條
             new SimpleBar(document.querySelector('.site_aside-bd'));
 
-            menuStore.setHighlightedMenuItem(currentMenuItem);
+            // 高亮顯示當前選單
+            menuStore.setHighlightedMenuItem(highlightMenuItem.value);
 
         });
         return {
@@ -89,8 +76,8 @@ const asideSetup = {
             handleSearch, isOpenSearch,
             handleMenu, isOpenMenu,
             isMobile,
-            isHomePage,
-            menuStore
+            menuStore,
+            highlightMenuItem
         }
     }
 };

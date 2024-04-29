@@ -189,8 +189,9 @@
         <!-- ========================================================================= -->
         <!-- .body_wrap  START-->
         <div class="body_wrap">
+            <!-- .site_aside  START-->
             <aside class="site_aside" id="Aside">
-                <div class="site_aside-inner">
+                <div class="site_aside-inner" :class="{'js-show': highlightMenuItem === 'home' && isMobile}">
                     <div class="site_aside-hd">
                         <div class="site_aside-hd-top">
                             <div class="member_info">
@@ -207,12 +208,12 @@
                                     <img src="./assets/images/icon-search.svg" alt="" v-if="!isOpenSearch" />
                                     <img src="./assets/images/icon-close.svg" alt="" v-if="isOpenSearch" />
                                 </button>
-                                <a class="ctrl-btn" href="javascript:;"
+                                <a class="ctrl-btn" href="./home.html"
                                     ><img src="./assets/images/icon-home.svg" alt=""
                                 /></a>
                             </div>
                         </div>
-                        <div class="hr" v-if="isHomePage"></div>
+                        <div class="hr"></div>
                         <div class="member_point">
                             <div class="member_point-inner">
                                 <div class="font-h3 txt-main-color">1234點</div>
@@ -249,7 +250,9 @@
                                         class="site_menu-item"
                                         :class="{'open-sublist': menuStore.highlightedMenuItem === 'xinyao-1'}">
                                         <div class="inner font-body-m">心藥目錄</div>
-                                        <ul class="sublist">
+                                        <!-- 電腦版顯示 -->
+
+                                        <ul class="sublist" v-if="!isMobile">
                                             <li class="subitem">
                                                 <a href="./xinyao-1.html" class="inner">
                                                     <div class="txt">恐懼</div>
@@ -258,6 +261,7 @@
                                                     </div>
                                                 </a>
                                             </li>
+
                                             <li class="subitem">
                                                 <a href="./xinyao-1.html" class="inner">
                                                     <div class="txt">茫然</div>
@@ -266,6 +270,7 @@
                                                     </div>
                                                 </a>
                                             </li>
+
                                             <li class="subitem">
                                                 <a href="./xinyao-1.html" class="inner">
                                                     <div class="txt">妄念</div>
@@ -274,12 +279,14 @@
                                                     </div>
                                                 </a>
                                             </li>
+
                                             <li class="subitem">
                                                 <a href="./xinyao-1.html" class="inner">
                                                     <div class="txt">寂寞</div>
                                                     <div class="note">漫無目標 / 表現存在 / 性急浮躁 / 孤傲不群</div>
                                                 </a>
                                             </li>
+
                                             <li class="subitem">
                                                 <a href="./xinyao-1.html" class="inner">
                                                     <div class="txt">敏感</div>
@@ -288,6 +295,7 @@
                                                     </div>
                                                 </a>
                                             </li>
+
                                             <li class="subitem">
                                                 <a href="./xinyao-1.html" class="inner">
                                                     <div class="txt">負面</div>
@@ -296,6 +304,7 @@
                                                     </div>
                                                 </a>
                                             </li>
+
                                             <li class="subitem">
                                                 <a href="./xinyao-1.html" class="inner">
                                                     <div class="txt">重擔</div>
@@ -305,11 +314,153 @@
                                                     </div>
                                                 </a>
                                             </li>
+
                                             <li class="subitem">
                                                 <a href="./xinyao-1.html" class="inner">
                                                     <div class="txt">靈性及業力</div>
                                                     <div class="note">好運富足 / 光明灌頂 / 靈性加持</div>
                                                 </a>
+                                            </li>
+                                        </ul>
+                                        <!-- 手機版顯示 -->
+
+                                        <ul class="sublist" v-if="isMobile">
+                                            <li class="subitem">
+                                                <div class="inner">
+                                                    <div class="txt">恐懼</div>
+                                                    <div class="note">
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">莫名恐懼</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">抓狂暴衝</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">小膽怕怕</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">過度擔憂</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">驚慌失措</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="subitem">
+                                                <div class="inner">
+                                                    <div class="txt">茫然</div>
+                                                    <div class="note">
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">舉棋不定</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">挫折消沉</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">絕望重鬱</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">怠惰沒勁</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">優柔寡斷</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="subitem">
+                                                <div class="inner">
+                                                    <div class="txt">妄念</div>
+                                                    <div class="note">
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">重複犯錯</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">妄想未來</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">沉溺過去</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">不時憂鬱</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">失控思緒</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">生活無趣</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="subitem">
+                                                <div class="inner">
+                                                    <div class="txt">寂寞</div>
+                                                    <div class="note">
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">漫無目標</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">表現存在</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">性急浮躁</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">孤傲不群</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="subitem">
+                                                <div class="inner">
+                                                    <div class="txt">敏感</div>
+                                                    <div class="note">
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">表面快樂</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">唯諾服務</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">怨瞋復仇</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">生活驟變</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">佔有依賴</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="subitem">
+                                                <div class="inner">
+                                                    <div class="txt">負面</div>
+                                                    <div class="note">
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">過度細節</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">喪失自信</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">罪己自責</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">驚嚇創傷</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">悲苦折磨</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">怨天尤人</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="subitem">
+                                                <div class="inner">
+                                                    <div class="txt">重擔</div>
+                                                    <div class="note">
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">身心耗竭</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">老牛拖車</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">責任硬撐</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">標準苛刻</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">嚴格律己</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">工作狂熱</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">獨裁支配</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="subitem">
+                                                <div class="inner">
+                                                    <div class="txt">靈性及業力</div>
+                                                    <div class="note">
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">好運富足</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">光明灌頂</a>
+
+                                                        <a href="./xinyao-1-mobile.html" class="note-link">靈性加持</a>
+                                                    </div>
+                                                </div>
                                             </li>
                                         </ul>
                                     </li>
@@ -343,6 +494,7 @@
                     </div>
                 </div>
             </aside>
+            <!-- /.site_aside  END  !!-->
 
             <!-- =========================================================================-->
             <!-- 頁面內容  START-->

@@ -34,7 +34,7 @@
     <main class="page_main page-home" id="xinyaoList">
         <% include "../pages_templates/_searchbar.njk" %>
 
-        <div class="page_main-container" v-if="!isMobile">
+        <div class="page_main-container">
             <h1 class="page_main-title txt-main-color">緊張應變</h1>
             <div class="xinyao_datatable__wrap">
                 <div class="xinyao_datatable">
@@ -57,9 +57,9 @@
                     </div>
                 </div>
             </div>
-            <div class="xinyao_datatable-ft"  v-if="isMobile">
-                <a href="./" class="xinyao_btn xinyao_btn-nobg">回目錄</a>
-                <a href="./cart" class="xinyao_btn">查看已挑選</a>
+            <div class="xinyao_datatable-ft" v-if="isMobile">
+                <a href="./home.html" class="xinyao_btn xinyao_btn-nobg">回目錄</a>
+                <a href="./cart.html" class="xinyao_btn">查看已挑選</a>
             </div>
             <!-- <div class="xinyao_datatable-pagination" v-if="isMobile">
                 <button class="xinyao_datatable-pagination-btn" @click="prevDatatable">上一個</button>

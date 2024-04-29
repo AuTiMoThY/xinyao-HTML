@@ -1,7 +1,12 @@
+// 這是從常用調理帖頁面過來的
+// 會帶入點選的常用調理帖資料
 import { InputField, amountField, SelectField, notification } from '../vue-components.js';
 import { useFormValidation } from '../vue-validation.js';
+import { useOpenSearch, useNotification } from '../vue-composable.js';
+import { useGlobalStateStore } from '../globalState.js';
 
 const { ref, createApp, computed, onMounted, watchEffect } = Vue;
+const { createPinia } = Pinia;
 const cartSetup = {
     components: {
         'input-field': InputField,
@@ -12,6 +17,7 @@ const cartSetup = {
     setup() {
         const { showNotification, notificationTitle, notificationCnt, showNoti, closeNoti } = useNotification();
         const { isOpenSearch } = useOpenSearch();
+        const globalState = useGlobalStateStore();
 
 
         const eventBus = window.eventBus;
@@ -19,9 +25,11 @@ const cartSetup = {
         const selectedItems = ref(JSON.parse(localStorage.getItem('replay') || '[]'));
         xinyao.log("localStorage selectedItems", selectedItems.value);
 
-
+        // 帶入點選的常用調理帖資料
         const replay = ref(JSON.parse(localStorage.getItem('replay') || '[]'));
         xinyao.log("localStorage replay", replay.value);
+
+        const isMobile = ref(globalState.isMobile);
 
         const p_name = ref('');
         const p_time_options = ref([]);
@@ -60,14 +68,6 @@ const cartSetup = {
         const { fieldErrors, validate } = useFormValidation(fields);
         const frmError = ref('');
 
-        // 获取 URL 查询参数
-        const queryString = window.location.search;
-
-        // 解析查询字符串
-        const urlParams = new URLSearchParams(queryString);
-
-        // 获取特定参数的值
-        const from = urlParams.get('from');
         const showAddFavBtn = ref(true);
 
 
@@ -103,7 +103,7 @@ const cartSetup = {
 
 
             // 更新 localStorage
-            localStorage.setItem('selectedItems', JSON.stringify(selectedItems.value));
+            // localStorage.setItem('selectedItems', JSON.stringify(selectedItems.value));
 
 
         };
@@ -115,33 +115,28 @@ const cartSetup = {
 
             // 更新 localStorage 中的 selectedItems
             // if(replay.value.length == 0) {
-            localStorage.setItem('selectedItems', JSON.stringify(selectedItems.value));
-            eventBus.setSelectedItemsCount(selectedItems.value.length);
+            // localStorage.setItem('selectedItems', JSON.stringify(selectedItems.value));
+            // globalState.updateSelectedItemsCount();
+            // eventBus.setSelectedItemsCount(selectedItems.value.length);
             // }
         }
 
         const addToFav = () => {
-            showNoti('加入成功', `您可以到<a class="link" href="${baseUrl}/favourite">常用調理帖</a>查看已加入的調理帖。`, () => {
+            showNoti('加入成功', `您可以到<a class="link" href="${baseUrl}favourite.html">常用調理帖</a>查看已加入的調理帖。`, () => {
 
             });
         }
         const sendCart = () => {
-            showNoti('送出成功', `即將帶您至<a class="link" href="${baseUrl}/history">調理帖紀錄</a>查看已送出的調理帖。`, () => {
+            showNoti('送出成功', `即將帶您至<a class="link" href="${baseUrl}history.html">調理帖紀錄</a>查看已送出的調理帖。`, () => {
                 window.location.href = `${baseUrl}/history`;
             });
         }
 
         onMounted(() => {
-            eventBus.setHighlightedMenuItem("cart");
 
             if (selectedItems.value.length === 0) {
                 isNodata.value = true;
             }
-
-            if (from == 'fav') {
-                showAddFavBtn.value = false;
-            }
-
         });
 
         // const isOpenSearch = ref(eventBus.state.isOpenSearch);
@@ -161,18 +156,20 @@ const cartSetup = {
             updateSelectedItems,
             removeItem,
             isDisabled, isOverAmountSum, isOverItemsNum,
-            showAddFavBtn,
             isOpenSearch,
             showNotification, notificationTitle, notificationCnt,
             addToFav,
-            sendCart
+            sendCart,
+            isMobile,
         }
     }
 
 }
 
 const cart = createApp(cartSetup);
+const pinia = createPinia();
 cart.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('module-')
 }
+cart.use(pinia);
 cart.mount("#cart");
