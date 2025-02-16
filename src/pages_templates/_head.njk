@@ -35,18 +35,13 @@
 <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
 <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://unpkg.com/vue-demi"></script>
-<script src="https://unpkg.com/pinia"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.13/vue.global.prod.min.js" integrity="sha512-66fV4MXSQdGN0KQxZ0Bw627HalhTQYQbOoF24EtMXN2FaAoKMgAZ7nDi77d9xWwrRjEEUfE+7rxjTt+cA2IuJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.8/axios.min.js" integrity="sha512-v8+bPcpk4Sj7CKB11+gK/FnsbgQ15jTwZamnBf/xDmiQDcgOIYufBo6Acu1y30vrk8gg5su4x0CG3zfPaq5Fcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-demi/0.14.10/index.iife.min.js" integrity="sha512-WlWfdPbyuYoflob4Dj7iU5tJ+ZAVNKYJwmxeFObn70TrhtcBgf9hl59hwV1+22uaZKF3u2+M8J+60lMtekJFvA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pinia/2.3.0/pinia.iife.js" integrity="sha512-KRXgqQOD+zmdoOpgezQFvXDth1usYBewy5XcsYluzsY93YxXaP0+q/rDZVPvUJWAJj4/VcMefxs7aBQcL+R6Fg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
-    const baseUrl =
-        window.location.protocol +
-        "//" +
-        window.location.hostname +
-        (window.location.port ? ":" + window.location.port : "") +
-        "/";
+    const baseUrl = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/';
     console.log(baseUrl);
 </script>
 

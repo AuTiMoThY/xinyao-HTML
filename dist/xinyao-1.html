@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant">
     <head>
-        <title>心藥目錄 | 佛印山心藥系統</title>
+        <title>bak 心藥目錄 | 佛印山心藥系統</title>
 
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -44,22 +44,33 @@
         <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
         <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script src="https://unpkg.com/vue-demi"></script>
-        <script src="https://unpkg.com/pinia"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.13/vue.global.prod.min.js"
+            integrity="sha512-66fV4MXSQdGN0KQxZ0Bw627HalhTQYQbOoF24EtMXN2FaAoKMgAZ7nDi77d9xWwrRjEEUfE+7rxjTt+cA2IuJA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.8/axios.min.js"
+            integrity="sha512-v8+bPcpk4Sj7CKB11+gK/FnsbgQ15jTwZamnBf/xDmiQDcgOIYufBo6Acu1y30vrk8gg5su4x0CG3zfPaq5Fcg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/vue-demi/0.14.10/index.iife.min.js"
+            integrity="sha512-WlWfdPbyuYoflob4Dj7iU5tJ+ZAVNKYJwmxeFObn70TrhtcBgf9hl59hwV1+22uaZKF3u2+M8J+60lMtekJFvA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/pinia/2.3.0/pinia.iife.js"
+            integrity="sha512-KRXgqQOD+zmdoOpgezQFvXDth1usYBewy5XcsYluzsY93YxXaP0+q/rDZVPvUJWAJj4/VcMefxs7aBQcL+R6Fg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
 
         <script>
-            const baseUrl =
-                window.location.protocol +
-                "//" +
-                window.location.hostname +
-                (window.location.port ? ":" + window.location.port : "") +
-                "/";
+            const baseUrl = window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")) + "/";
             console.log(baseUrl);
         </script>
 
-        <link rel="stylesheet" href="./assets/css/style.css?v=20240414" />
+        <link rel="stylesheet" href="./assets/css/style.css?v=20250216" />
 
         <!-- ====================== -->
         <!-- ===  心藥目錄(xinyao-1)頁面專用script === -->
@@ -114,16 +125,6 @@
                                     part_img:
                                         "http://maha-sati.org/admin/attached/media/20170827/20170827173368266826.jpeg",
                                 },
-                                {
-                                    part_name: "男性 陰部",
-                                    part_img:
-                                        "http://maha-sati.org/admin/attached/media/20170827/20170827173496559655.jpeg",
-                                },
-                                {
-                                    part_name: "女性陰部",
-                                    part_img:
-                                        "http://maha-sati.org/admin/attached/media/20170827/2017082717370232232.jpeg",
-                                },
                             ],
                         },
                         {
@@ -155,11 +156,6 @@
                                     part_name: "右腳掌",
                                     part_img:
                                         "http://maha-sati.org/admin/attached/media/20170827/20170827191655635563.jpeg",
-                                },
-                                {
-                                    part_name: "男性 陰部",
-                                    part_img:
-                                        "http://maha-sati.org/admin/attached/media/20170827/20170827191780038003.jpeg",
                                 },
                             ],
                         },
@@ -505,10 +501,10 @@
         <!-- =========================================================================-->
 
         <script src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js" async></script>
-        <script src="./assets/js/eventBus.js?v=20240414"></script>
-        <script src="./assets/js/script.js?v=20240414"></script>
-        <script type="module" src="./assets/js/frontend/aside.js?v=20240414"></script>
+        <script src="./assets/js/eventBus.js?v=20250216"></script>
+        <script src="./assets/js/script.js?v=20250216"></script>
+        <script type="module" src="./assets/js/frontend/aside.js?v=20250216"></script>
 
-        <script type="module" src="./assets/js/frontend/xinyao.js?v=20240414"></script>
+        <script type="module" src="./assets/js/frontend/xinyao.js?v=20250216"></script>
     </body>
 </html>

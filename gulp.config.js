@@ -1,5 +1,8 @@
+import { readFileSync } from 'fs';
+
 const project = "xinyao";
-const version = "20240414";
+const packageJson = JSON.parse(readFileSync('./package.json'));
+const version = packageJson.version;
 
 const entry = 'src';
 const output = 'dist';
