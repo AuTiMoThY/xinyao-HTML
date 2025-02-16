@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant">
     <head>
-        <title>bak 搜尋結果 | 佛印山心藥系統</title>
+        <title>bak 心藥目錄(手機版示意) | 佛印山心藥系統</title>
 
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -73,12 +73,12 @@
         <link rel="stylesheet" href="./assets/css/style.css?v=20250216" />
 
         <!-- ====================== -->
-        <!-- ===  搜尋結果(search)頁面專用script === -->
+        <!-- ===  心藥目錄(xinyao-1)頁面專用script === -->
         <script>
-            const currentMenuItem = "search";
+            const currentMenuItem = "xinyao-1";
             // 這邊示意:
-            // 撈出的資料，以JSON儲存在 searchResult
-            const searchResult = [
+            // 撈出的資料，以JSON儲存在 currentSubCateData
+            const currentSubCateData = [
                 {
                     txt: "恐懼",
                     note: "莫名恐懼/抓狂暴衝/小膽怕怕/過度擔憂/驚慌失措",
@@ -449,7 +449,7 @@
                 </div>
                 <div class="hr" v-if="!isMobile"></div>
 
-                <div class="page_main-container" v-if="!isMobile">
+                <div class="page_main-container">
                     <h1 class="page_main-title txt-main-color">心藥目錄：恐懼</h1>
                     <div class="xinyao_datatable__wrap">
                         <div class="xinyao_datatable">
@@ -458,6 +458,9 @@
                                 <div class="xinyao_datatable-th info">說明</div>
                                 <div class="xinyao_datatable-th action">操作</div>
                             </div>
+                            <!-- 數據行：用於動態生成每條數據的 DOM 結構 -->
+                            <!-- 使用 `v-for` 指令迭代 `data` 數據陣列中的每個 `item` 及其 `index` -->
+                            <!-- `:key` 屬性設定為 `index`，確保每個元素都有唯一的鍵值，這有助於 Vue 在更新和重新渲染時進行優化。 -->
                             <div class="xinyao_datatable-tr" v-for="(item, index) in data" :key="index">
                                 <div class="xinyao_datatable-td name" data-th="調理項目">{{item.name}}</div>
                                 <div class="xinyao_datatable-td info" data-th="說明">
@@ -465,7 +468,13 @@
                                 </div>
                                 <div class="xinyao_datatable-td action" data-th="操作">
                                     <div class="action-amount">
+                                        <!-- 數量加減元件 -->
+                                        <!-- dist\assets\js\vue-components.js -->
                                         <amount-field v-model="item.amount"></amount-field>
+
+                                        <!-- 按鈕：加入 -->
+                                        <!-- `@click` 是 Vue 中的事件綁定語法，用來定義當按鈕被點擊時執行的方法。 -->
+                                        <!-- 此按鈕點擊時會執行 `addToList(item)` 方法，將當前項目 `item` 加入到列表中。 -->
                                         <button type="button" class="action_btn" @click="addToList(item)">加入</button>
                                     </div>
                                 </div>
@@ -473,15 +482,11 @@
                         </div>
                     </div>
                     <div class="xinyao_datatable-ft" v-if="isMobile">
-                        <a href="./" class="xinyao_btn xinyao_btn-nobg">回目錄</a>
+                        <a href="./home.html" class="xinyao_btn xinyao_btn-nobg">回目錄</a>
                         <a href="./cart.html" class="xinyao_btn">查看已挑選</a>
                     </div>
-                    <!-- <div class="xinyao_datatable-pagination" v-if="isMobile">
-                <button class="xinyao_datatable-pagination-btn" @click="prevDatatable">上一個</button>
-                <span class="xinyao_datatable-pagination-number"><span class="current">{{currentDatatable}}</span> / {{totalDatatable}}</span>
-                <button class="xinyao_datatable-pagination-btn" @click="nextDatatable">下一個</button>
-            </div> -->
                 </div>
+                <!-- popup 彈出視窗 -->
                 <div v-if="showPopupSelect" class="popup popup_select">
                     <div class="popup-block">
                         <div class="popup-hd">
@@ -511,6 +516,7 @@
                             </div>
                         </div>
                         <div class="popup-ft">
+                            <!-- 點擊後執行`handleSelection(isUnknown)`方法 -->
                             <button @click="handleSelection(true)" type="button" class="xinyao_btn xinyao_btn-nobg">
                                 無/未知
                             </button>
@@ -522,11 +528,15 @@
                                 確認
                             </button>
                         </div>
+                        <!-- 點擊後，關閉popup -->
                         <button @click="showPopupSelect = false" type="button" class="popup-close">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
                     </div>
                 </div>
+                <!-- /.popup_select END ! -->
+                <!-- 通知元件 (notification) -->
+                <!-- dist\assets\js\vue-components.js -->
                 <notification
                     :show="showNotification"
                     :msgtitle="notificationTitle"
@@ -546,6 +556,6 @@
         <script src="./assets/js/script.js?v=20250216"></script>
         <script type="module" src="./assets/js/frontend/aside.js?v=20250216"></script>
 
-        <script type="module" src="./assets/js/frontend/search.js?v=20250216"></script>
+        <script type="module" src="./assets/js/frontend/xinyao.js?v=20250216"></script>
     </body>
 </html>

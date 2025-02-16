@@ -1,7 +1,9 @@
 import { submitBtn, InputField, PasswordField } from '../vue-components.js';
 import { useFormValidation } from '../vue-validation.js';
+import { useGlobalStateStore } from '../globalState.js';
 
 const {ref, createApp} = Vue;
+const { createPinia } = Pinia;
 const loginPageSetup = {
     components: {
         'input-field': InputField,
@@ -9,6 +11,9 @@ const loginPageSetup = {
         'submit-btn': submitBtn
     },
     setup() {
+        const globalState = useGlobalStateStore();
+        const isMobile = ref(globalState.isMobile);
+        console.log(isMobile.value);
         const isdisabled = ref(false);
         const user_id = ref('');
         const user_pw = ref('');
@@ -26,8 +31,6 @@ const loginPageSetup = {
             xinyao.log("login");
             isdisabled.value = true;
             frmError.value = '';
-            const formElement = e.target;
-            // const baseUrl = formElement.getAttribute('data-baseurl');
             console.log(baseUrl);
 
             if (!validate()) {
@@ -36,6 +39,7 @@ const loginPageSetup = {
                 return;
             }
 
+            // 帳密皆有填寫
             if(user_id.value != '' && user_pw.value != '') {
                 // try {
                 //     xinyao.log('try');
@@ -60,8 +64,13 @@ const loginPageSetup = {
                 //     frmError.value = '請重新整理頁面';
                 // }
 
-                // 登入後導頁至心藥目錄
-                window.location.href = `${baseUrl}xinyao-1.html`;
+                // 登入成功後，若是手機版導頁至選單頁；若是電腦版，導頁至心藥目錄頁
+                if (isMobile.value) {
+                    window.location.href = `${baseUrl}home.html`;
+                }
+                else {
+                    window.location.href = `${baseUrl}xinyao-1.html`;
+                }
             }
             else {
                 isdisabled.value = false;
@@ -81,7 +90,9 @@ const loginPageSetup = {
 }
 
 const loginPage = createApp(loginPageSetup);
+const pinia = createPinia();
 loginPage.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('module-')
 }
+loginPage.use(pinia);
 loginPage.mount("#loginApp");

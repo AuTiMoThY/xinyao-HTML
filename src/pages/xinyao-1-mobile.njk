@@ -1,24 +1,28 @@
-<% set page_title = "症狀初期" %>
+<% set page_title = "心藥目錄(手機版示意)" %>
 <% extends "_layout.njk" %>
 
 
 <% block page_head %>
+
 <!-- ====================== -->
-<!-- ===  症狀初期(xinyao-3) 頁面專用script === -->
+<!-- ===  心藥目錄(xinyao-1)頁面專用script === -->
 <script>
-    const currentMenuItem = 'xinyao-3';
+    const currentMenuItem = 'xinyao-1';
     // 這邊示意:
-    // 撈出的資料，以JSON格式儲存在 currentSubCateData 
+    // 撈出的資料，以JSON儲存在 currentSubCateData 
     const currentSubCateData = [
         {
-            'txt' : '',
-            'note': '',
+            'txt' : '恐懼',
+            'note': '莫名恐懼/抓狂暴衝/小膽怕怕/過度擔憂/驚慌失措',
             'item': [
                 {
-                    'name': '症狀初期',
-                    'directions': '症狀初期藥方說明',
+                    'name': '莫名恐懼',
+                    'directions': '釋放遭受恐懼與擔憂困擾卻找不到原因的情緒。<br>莫名、無以名狀的恐懼，沒有原因的、沒有解釋的。<br>怕什麼不幸的事情將會降臨，但說不出是什麼、為什麼。<br>神經質，容易緊張焦慮。<br>對未來常有不祥的預感。<br>當被問及為何害怕，卻說不出理由。<br>感到不明原因且無法以言語解釋的不安或恐懼。',
                     'parts': [
-                        { 'part_name': '部位1', 'part_img': 'http://maha-sati.org/admin/attached/media/20170827/20170827170913961396.jpeg' },
+                        { 'part_name': '頭面部', 'part_img': 'http://maha-sati.org/admin/attached/media/20170827/20170827170913961396.jpeg' },
+                        { 'part_name': '右頸胸肩', 'part_img': 'http://maha-sati.org/admin/attached/media/20170827/20170827171071177117.jpeg' },
+                        { 'part_name': '左腿內側', 'part_img': 'http://maha-sati.org/admin/attached/media/20170827/20170827171340944094.jpeg' },
+                        { 'part_name': '背部軀幹', 'part_img': 'http://maha-sati.org/admin/attached/media/20170827/20170827171265736573.jpeg' }
                     ]
                 }
             ]
@@ -35,7 +39,7 @@
         <% include "../pages_templates/_searchbar.njk" %>
 
         <div class="page_main-container">
-            <h1 class="page_main-title txt-main-color">症狀初期</h1>
+            <h1 class="page_main-title txt-main-color">心藥目錄：恐懼</h1>
             <div class="xinyao_datatable__wrap">
                 <div class="xinyao_datatable">
                     <div class="xinyao_datatable-heading">
@@ -43,6 +47,9 @@
                         <div class="xinyao_datatable-th info">說明</div>
                         <div class="xinyao_datatable-th action">操作</div>
                     </div>
+                    <!-- 數據行：用於動態生成每條數據的 DOM 結構 -->
+                    <!-- 使用 `v-for` 指令迭代 `data` 數據陣列中的每個 `item` 及其 `index` -->
+                    <!-- `:key` 屬性設定為 `index`，確保每個元素都有唯一的鍵值，這有助於 Vue 在更新和重新渲染時進行優化。 -->
                     <div class="xinyao_datatable-tr" v-for="(item, index) in data" :key="index">
                         <div class="xinyao_datatable-td name" data-th="調理項目">{{item.name}}</div>
                         <div class="xinyao_datatable-td info" data-th="說明">
@@ -50,7 +57,13 @@
                         </div>
                         <div class="xinyao_datatable-td action" data-th="操作">
                             <div class="action-amount">
+                                <!-- 數量加減元件 -->
+                                <!-- dist\assets\js\vue-components.js -->
                                 <amount-field v-model="item.amount"></amount-field>
+
+                                <!-- 按鈕：加入 -->
+                                <!-- `@click` 是 Vue 中的事件綁定語法，用來定義當按鈕被點擊時執行的方法。 -->
+                                <!-- 此按鈕點擊時會執行 `addToList(item)` 方法，將當前項目 `item` 加入到列表中。 -->
                                 <button type="button" class="action_btn" @click="addToList(item)">加入</button>
                             </div>
                         </div>
@@ -61,12 +74,8 @@
                 <a href="./home.html" class="xinyao_btn xinyao_btn-nobg">回目錄</a>
                 <a href="./cart.html" class="xinyao_btn">查看已挑選</a>
             </div>
-            <!-- <div class="xinyao_datatable-pagination" v-if="isMobile">
-                <button class="xinyao_datatable-pagination-btn" @click="prevDatatable">上一個</button>
-                <span class="xinyao_datatable-pagination-number"><span class="current">{{currentDatatable}}</span> / {{totalDatatable}}</span>
-                <button class="xinyao_datatable-pagination-btn" @click="nextDatatable">下一個</button>
-            </div> -->
         </div>
+        <!-- popup 彈出視窗 -->
         <div v-if="showPopupSelect" class="popup popup_select">
             <div class="popup-block">
                 <div class="popup-hd ">
@@ -91,14 +100,19 @@
                     </div>
                 </div>
                 <div class="popup-ft">
+                    <!-- 點擊後執行`handleSelection(isUnknown)`方法 -->
                     <button @click="handleSelection(true)" type="button" class="xinyao_btn xinyao_btn-nobg">無/未知</button>
                     <button @click="handleSelection(false)" type="button" class="xinyao_btn" :disabled="!hasSelected">確認</button>
                 </div>
+                <!-- 點擊後，關閉popup -->
                 <button @click="showPopupSelect = false" type="button" class="popup-close">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
         </div>
+        <!-- /.popup_select END ! -->
+        <!-- 通知元件 (notification) -->
+        <!-- dist\assets\js\vue-components.js -->
         <notification :show="showNotification" :msgtitle="notificationTitle" :msgcnt="notificationCnt"></notification>
     </main>
 

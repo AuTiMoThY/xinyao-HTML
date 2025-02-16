@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant">
     <head>
-        <title>bak 搜尋結果 | 佛印山心藥系統</title>
+        <title>bak 挑選中調理帖 | 佛印山心藥系統</title>
 
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -72,47 +72,8 @@
 
         <link rel="stylesheet" href="./assets/css/style.css?v=20250216" />
 
-        <!-- ====================== -->
-        <!-- ===  搜尋結果(search)頁面專用script === -->
         <script>
-            const currentMenuItem = "search";
-            // 這邊示意:
-            // 撈出的資料，以JSON儲存在 searchResult
-            const searchResult = [
-                {
-                    txt: "恐懼",
-                    note: "莫名恐懼/抓狂暴衝/小膽怕怕/過度擔憂/驚慌失措",
-                    item: [
-                        {
-                            name: "莫名恐懼",
-                            directions:
-                                "釋放遭受恐懼與擔憂困擾卻找不到原因的情緒。<br>莫名、無以名狀的恐懼，沒有原因的、沒有解釋的。<br>怕什麼不幸的事情將會降臨，但說不出是什麼、為什麼。<br>神經質，容易緊張焦慮。<br>對未來常有不祥的預感。<br>當被問及為何害怕，卻說不出理由。<br>感到不明原因且無法以言語解釋的不安或恐懼。",
-                            parts: [
-                                {
-                                    part_name: "頭面部",
-                                    part_img:
-                                        "http://maha-sati.org/admin/attached/media/20170827/20170827170913961396.jpeg",
-                                },
-                                {
-                                    part_name: "右頸胸肩",
-                                    part_img:
-                                        "http://maha-sati.org/admin/attached/media/20170827/20170827171071177117.jpeg",
-                                },
-                                {
-                                    part_name: "左腿內側",
-                                    part_img:
-                                        "http://maha-sati.org/admin/attached/media/20170827/20170827171340944094.jpeg",
-                                },
-                                {
-                                    part_name: "背部軀幹",
-                                    part_img:
-                                        "http://maha-sati.org/admin/attached/media/20170827/20170827171265736573.jpeg",
-                                },
-                            ],
-                        },
-                    ],
-                },
-            ];
+            const currentMenuItem = "cart";
         </script>
     </head>
 
@@ -435,7 +396,7 @@
             <!-- =========================================================================-->
             <!-- 頁面內容  START-->
             <!-- =========================================================================-->
-            <main class="page_main page-home" id="xinyaoList">
+            <main class="page_main page-cart" id="cart">
                 <div class="search_bar" :class="{'js-open': isOpenSearch}">
                     <div class="search_bar-field">
                         <div class="search_bar-icon">
@@ -449,84 +410,98 @@
                 </div>
                 <div class="hr" v-if="!isMobile"></div>
 
-                <div class="page_main-container" v-if="!isMobile">
-                    <h1 class="page_main-title txt-main-color">心藥目錄：恐懼</h1>
-                    <div class="xinyao_datatable__wrap">
-                        <div class="xinyao_datatable">
-                            <div class="xinyao_datatable-heading">
-                                <div class="xinyao_datatable-th name">調理項目</div>
-                                <div class="xinyao_datatable-th info">說明</div>
-                                <div class="xinyao_datatable-th action">操作</div>
+                <div class="page_main-container">
+                    <h1 class="page_main-title txt-main-color">挑選中調理帖</h1>
+                    <div class="cart__wrap">
+                        <div class="cart-bd row-2-parts">
+                            <div class="cart-col order_info">
+                                <div class="title">訂單資訊</div>
+                                <div class="hr"></div>
+                                <input-field
+                                    label="調理帖名稱"
+                                    placeholder="請輸入調理帖名稱"
+                                    id="p_name"
+                                    v-model="p_name"
+                                    :error="fieldErrors.p_name"></input-field>
+                                <select-field
+                                    label="調理帖運行時數"
+                                    id="p_time"
+                                    v-model="p_time"
+                                    :options="p_time_options"
+                                    :error="fieldErrors.p_time"></select-field>
+                                <!-- <input-field label="姓名" placeholder="請輸入您的姓名" id="u_name" v-model="u_name" :error="fieldErrors.u_name"></input-field>
+                        <input-field label="居住地址" placeholder="請輸入居住地址" id="u_addr" v-model="u_addr" :error="fieldErrors.u_addr"></input-field>
+                        <input-field label="電話" placeholder="請輸入電話號碼" id="u_phone" v-model="u_phone" :error="fieldErrors.u_phone"></input-field> -->
                             </div>
-                            <div class="xinyao_datatable-tr" v-for="(item, index) in data" :key="index">
-                                <div class="xinyao_datatable-td name" data-th="調理項目">{{item.name}}</div>
-                                <div class="xinyao_datatable-td info" data-th="說明">
-                                    <p class="txt" v-html="item.directions"></p>
+                            <div class="cart-col cart_info grid-table">
+                                <div class="cart_info-heading grid-tablerow">
+                                    <div class="cart_info-th grid-cell name">調理項目</div>
+                                    <div class="cart_info-th grid-cell amount">份量</div>
+                                    <div class="cart_info-th grid-cell action">操作</div>
                                 </div>
-                                <div class="xinyao_datatable-td action" data-th="操作">
-                                    <div class="action-amount">
-                                        <amount-field v-model="item.amount"></amount-field>
-                                        <button type="button" class="action_btn" @click="addToList(item)">加入</button>
+                                <div class="grid-tablerow cart_info-no_data" v-if="isNodata">尚無調理項目</div>
+                                <div
+                                    class="grid-tablerow cart_info-list"
+                                    v-for="(item, index) in selectedItems"
+                                    :key="index">
+                                    <div class="cart_info-td grid-cell name" data-th="調理項目">
+                                        {{ item.name + (item.part ? ' (' + item.part + ')' : '') }}
+                                    </div>
+                                    <div class="cart_info-td grid-cell amount" data-th="份量">
+                                        <amount-field
+                                            v-model="item.amount"
+                                            @amount-changed="updateSelectedItems"></amount-field>
+                                    </div>
+                                    <div class="cart_info-td grid-cell action" data-th="操作">
+                                        <button type="button" class="action_btn" @click="removeItem(index)">
+                                            <svg data-src="./assets/images/icon-delete.svg"></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="grid-tablerow cart_info-list-error" v-if="isOverItemsNum">
+                                    <div class="cart_info-td grid-cell error" style="grid-column: span 3">
+                                        一帖調理帖最多5種心藥 ({{selectedItems.length}}/5)
+                                    </div>
+                                </div>
+                                <div class="grid-tablerow cart_info-tip">
+                                    <div class="cart_info-td grid-cell tip" style="grid-column: span 3">
+                                        <div class="tip-title">小提醒</div>
+                                        <div class="tip-cnt">
+                                            <ul>
+                                                <li>一帖調理帖最多5種心藥。</li>
+                                                <li>總調理值最多10點。</li>
+                                                <li>花費點數依照調理帖運行時數而定，1小時=1點。</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-tablerow cart_info-total">
+                                    <div class="cart_info-td grid-cell total" style="grid-column: span 3">
+                                        <div class="total-row">
+                                            <div class="title">調理值</div>
+                                            <div class="txt">
+                                                <span class="error" v-if="isOverAmountSum">總調理值最多10點</span>
+                                                <b>{{amount_sum}}</b> / 10
+                                            </div>
+                                        </div>
+                                        <div class="total-row">
+                                            <div class="title">花費點數</div>
+                                            <div class="txt"><b>{{p_time}}</b></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="xinyao_datatable-ft" v-if="isMobile">
-                        <a href="./" class="xinyao_btn xinyao_btn-nobg">回目錄</a>
-                        <a href="./cart.html" class="xinyao_btn">查看已挑選</a>
-                    </div>
-                    <!-- <div class="xinyao_datatable-pagination" v-if="isMobile">
-                <button class="xinyao_datatable-pagination-btn" @click="prevDatatable">上一個</button>
-                <span class="xinyao_datatable-pagination-number"><span class="current">{{currentDatatable}}</span> / {{totalDatatable}}</span>
-                <button class="xinyao_datatable-pagination-btn" @click="nextDatatable">下一個</button>
-            </div> -->
-                </div>
-                <div v-if="showPopupSelect" class="popup popup_select">
-                    <div class="popup-block">
-                        <div class="popup-hd">
-                            <b class="popup-title txt-main-color">請選擇您不適的部位</b>
-                            <small class="font-note txt-sub-color">可複選</small>
-                        </div>
-                        <div class="popup-bd">
-                            <div class="select_parts">
-                                <ul class="select_parts-list">
-                                    <li class="select_parts-item" v-for="(part, index) in selectParts">
-                                        <label :for="'part-' + index" class="item_label">
-                                            <input
-                                                type="checkbox"
-                                                class="item_input--checkbox"
-                                                :id="'part-' + index"
-                                                :value="part.part_name"
-                                                v-model="selectedParts" />
-                                            <div class="select_parts-item-inner">
-                                                <span class="label">{{part.part_name}}</span>
-                                                <span class="img">
-                                                    <img :src="part.part_img" :alt="part.part_name" />
-                                                </span>
-                                            </div>
-                                        </label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="popup-ft">
-                            <button @click="handleSelection(true)" type="button" class="xinyao_btn xinyao_btn-nobg">
-                                無/未知
-                            </button>
-                            <button
-                                @click="handleSelection(false)"
-                                type="button"
-                                class="xinyao_btn"
-                                :disabled="!hasSelected">
-                                確認
+                        <div class="cart-ft">
+                            <button @click="sendCart" type="button" class="xinyao_btn" :disabled="isDisabled">
+                                立即調理
                             </button>
                         </div>
-                        <button @click="showPopupSelect = false" type="button" class="popup-close">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
                     </div>
                 </div>
+
+                <!-- 通知元件 (notification) -->
+                <!-- dist\assets\js\vue-components.js -->
                 <notification
                     :show="showNotification"
                     :msgtitle="notificationTitle"
@@ -546,6 +521,6 @@
         <script src="./assets/js/script.js?v=20250216"></script>
         <script type="module" src="./assets/js/frontend/aside.js?v=20250216"></script>
 
-        <script type="module" src="./assets/js/frontend/search.js?v=20250216"></script>
+        <script type="module" src="./assets/js/frontend/cart2.js?v=20250216"></script>
     </body>
 </html>

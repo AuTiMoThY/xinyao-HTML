@@ -1,5 +1,5 @@
 <aside class="site_aside" id="Aside">
-    <div class="site_aside-inner">
+    <div class="site_aside-inner" :class="{'js-show': highlightMenuItem === 'home' && isMobile}">
         <div class="site_aside-hd">
             <div class="site_aside-hd-top">
                 <div class="member_info">
@@ -16,10 +16,10 @@
                         <img src="[[IMG_PATH]]icon-search.svg" alt="" v-if="!isOpenSearch">
                         <img src="[[IMG_PATH]]icon-close.svg" alt="" v-if="isOpenSearch">
                     </button>
-                    <a class="ctrl-btn" href="javascript:;"><img src="[[IMG_PATH]]icon-home.svg" alt=""></a>
+                    <a class="ctrl-btn" href="./home.html"><img src="[[IMG_PATH]]icon-home.svg" alt=""></a>
                 </div>
             </div>
-            <div class="hr " v-if="isHomePage"></div>
+            <div class="hr "></div>
             <div class="member_point">
                 <div class="member_point-inner">
                     <div class="font-h3 txt-main-color">1234點</div>
@@ -48,55 +48,51 @@
                         </li>
                         <li class="site_menu-item" :class="{'open-sublist': menuStore.highlightedMenuItem === 'xinyao-1'}">
                             <div class="inner font-body-m">心藥目錄</div>
-                            <ul class="sublist">
+                            <!-- 電腦版顯示 -->
+                            <% set webXinyao1Menu = [
+                                { label: "恐懼", note: "莫名恐懼 / 抓狂暴衝 / 小膽怕怕 / 過度擔憂 / 驚慌失措" },
+                                { label: "茫然", note: "舉棋不定 / 挫折消沉 / 絕望重鬱 / 怠惰沒勁 / 優柔寡斷" },
+                                { label: "妄念", note: "重複犯錯 / 妄想未來 / 沉溺過去 / 不時憂鬱 / 失控思緒 / 生活無趣" },
+                                { label: "寂寞", note: "漫無目標 / 表現存在 / 性急浮躁 / 孤傲不群" },
+                                { label: "敏感", note: "表面快樂 / 唯諾服務 / 怨瞋復仇 / 生活驟變 / 佔有依賴" },
+                                { label: "負面", note: "過度細節 / 喪失自信 / 罪己自責 / 驚嚇創傷 / 悲苦折磨 / 怨天尤人" },
+                                { label: "重擔", note: "身心耗竭 / 老牛拖車 / 責任硬撐 / 標準苛刻 / 嚴格律己 / 工作狂熱 / 獨裁支配" },
+                                { label: "靈性及業力", note: "好運富足 / 光明灌頂 / 靈性加持" }
+                            ] %>
+                            <ul class="sublist" v-if="!isMobile">
+                                <% for item in webXinyao1Menu %>
                                 <li class="subitem">
                                     <a href="./xinyao-1.html" class="inner">
-                                        <div class="txt">恐懼</div>
-                                        <div class="note"> 莫名恐懼 / 抓狂暴衝 / 小膽怕怕 / 過度擔憂 / 驚慌失措 </div>
+                                        <div class="txt">[[item.label]]</div>
+                                        <div class="note">[[item.note]]</div>
                                     </a>
                                 </li>
+                                <% endfor %>
+                            </ul>
+                            <!-- 手機版顯示 -->
+                            <% set mobileXinyao1Menu = [
+                                { label: "恐懼", list: ["莫名恐懼", "抓狂暴衝", "小膽怕怕", "過度擔憂", "驚慌失措"] },
+                                { label: "茫然", list: ["舉棋不定", "挫折消沉", "絕望重鬱", "怠惰沒勁", "優柔寡斷"] },
+                                { label: "妄念", list: ["重複犯錯", "妄想未來", "沉溺過去", "不時憂鬱", "失控思緒", "生活無趣"] },
+                                { label: "寂寞", list: ["漫無目標", "表現存在", "性急浮躁", "孤傲不群"] },
+                                { label: "敏感", list: ["表面快樂", "唯諾服務", "怨瞋復仇", "生活驟變", "佔有依賴"] },
+                                { label: "負面", list: ["過度細節", "喪失自信", "罪己自責", "驚嚇創傷", "悲苦折磨", "怨天尤人"] },
+                                { label: "重擔", list: ["身心耗竭", "老牛拖車", "責任硬撐", "標準苛刻", "嚴格律己", "工作狂熱", "獨裁支配"] },
+                                { label: "靈性及業力", list: ["好運富足", "光明灌頂", "靈性加持"] }
+                            ] %>
+                            <ul class="sublist" v-if="isMobile">
+                                <% for item in mobileXinyao1Menu %>
                                 <li class="subitem">
-                                    <a href="./xinyao-1.html" class="inner">
-                                        <div class="txt">茫然</div>
-                                        <div class="note"> 舉棋不定 / 挫折消沉 / 絕望重鬱 / 怠惰沒勁 / 優柔寡斷 </div>
-                                    </a>
+                                    <div class="inner">
+                                        <div class="txt">[[item.label]]</div>
+                                        <div class="note">
+                                            <% for subitem in item.list %>
+                                            <a href="./xinyao-1-mobile.html" class="note-link">[[subitem]]</a>
+                                            <% endfor %>
+                                        </div>
+                                    </div>
                                 </li>
-                                <li class="subitem">
-                                    <a href="./xinyao-1.html" class="inner">
-                                        <div class="txt">妄念</div>
-                                        <div class="note"> 重複犯錯 / 妄想未來 / 沉溺過去 / 不時憂鬱 / 失控思緒 / 生活無趣 </div>
-                                    </a>
-                                </li>
-                                <li class="subitem">
-                                    <a href="./xinyao-1.html" class="inner">
-                                        <div class="txt">寂寞</div>
-                                        <div class="note"> 漫無目標 / 表現存在 / 性急浮躁 / 孤傲不群 </div>
-                                    </a>
-                                </li>
-                                <li class="subitem">
-                                    <a href="./xinyao-1.html" class="inner">
-                                        <div class="txt">敏感</div>
-                                        <div class="note"> 表面快樂 / 唯諾服務 / 怨瞋復仇 / 生活驟變 / 佔有依賴 </div>
-                                    </a>
-                                </li>
-                                <li class="subitem">
-                                    <a href="./xinyao-1.html" class="inner">
-                                        <div class="txt">負面</div>
-                                        <div class="note"> 過度細節 / 喪失自信 / 罪己自責 / 驚嚇創傷 / 悲苦折磨 / 怨天尤人 </div>
-                                    </a>
-                                </li>
-                                <li class="subitem">
-                                    <a href="./xinyao-1.html" class="inner">
-                                        <div class="txt">重擔</div>
-                                        <div class="note"> 身心耗竭 / 老牛拖車 / 責任硬撐 / 標準苛刻 / 嚴格律己 / 工作狂熱 / 獨裁支配 </div>
-                                    </a>
-                                </li>
-                                <li class="subitem">
-                                    <a href="./xinyao-1.html" class="inner">
-                                        <div class="txt">靈性及業力</div>
-                                        <div class="note"> 好運富足 / 光明灌頂 / 靈性加持 </div>
-                                    </a>
-                                </li>
+                                <% endfor %>
                             </ul>
                         </li>
 

@@ -5,9 +5,9 @@
 <% block page_head %>
 
 <!-- ====================== -->
-<!-- ===  心藥目錄(xinyao-1)頁面專用script === -->
+<!-- ===  手機版選單頁面專用script === -->
 <script>
-    const currentMenuItem = 'xinyao-1';
+    const currentMenuItem = 'home';
     // 這邊示意:
     // 撈出的資料，以JSON儲存在 currentSubCateData 
     const currentSubCateData = [
@@ -31,6 +31,8 @@
                     'parts': [
                         { 'part_name': '背部軀幹', 'part_img': 'http://maha-sati.org/admin/attached/media/20170827/20170827173147854785.jpeg' },
                         { 'part_name': '腿部正面', 'part_img': 'http://maha-sati.org/admin/attached/media/20170827/20170827173368266826.jpeg' },
+                        { 'part_name': '男性 陰部', 'part_img': 'http://maha-sati.org/admin/attached/media/20170827/20170827173496559655.jpeg' },
+                        { 'part_name': '女性陰部', 'part_img': 'http://maha-sati.org/admin/attached/media/20170827/2017082717370232232.jpeg' },
                     ]
                 },
                 {
@@ -42,6 +44,7 @@
                         { 'part_name': '胸腹軀幹', 'part_img': 'http://maha-sati.org/admin/attached/media/20170827/20170827191211301130.jpeg' },
                         { 'part_name': '左臂前方', 'part_img': 'http://maha-sati.org/admin/attached/media/20170827/20170827191456405640.jpeg' },
                         { 'part_name': '右腳掌', 'part_img': 'http://maha-sati.org/admin/attached/media/20170827/20170827191655635563.jpeg' },
+                        { 'part_name': '男性 陰部', 'part_img': 'http://maha-sati.org/admin/attached/media/20170827/20170827191780038003.jpeg' },
                     ]
                 },
                 {
@@ -76,83 +79,6 @@
     <!-- =========================================================================-->
     <main class="page_main page-home" id="xinyaoList">
         <% include "../pages_templates/_searchbar.njk" %>
-
-        <div class="page_main-container">
-            <h1 class="page_main-title txt-main-color">心藥目錄：恐懼</h1>
-            <div class="xinyao_datatable__wrap">
-                <div class="xinyao_datatable">
-                    <div class="xinyao_datatable-heading">
-                        <div class="xinyao_datatable-th name">調理項目</div>
-                        <div class="xinyao_datatable-th info">說明</div>
-                        <div class="xinyao_datatable-th action">操作</div>
-                    </div>
-                    <!-- 數據行：用於動態生成每條數據的 DOM 結構 -->
-                    <!-- 使用 `v-for` 指令迭代 `data` 數據陣列中的每個 `item` 及其 `index` -->
-                    <!-- `:key` 屬性設定為 `index`，確保每個元素都有唯一的鍵值，這有助於 Vue 在更新和重新渲染時進行優化。 -->
-                    <div class="xinyao_datatable-tr" v-for="(item, index) in data" :key="index">
-                        <div class="xinyao_datatable-td name" data-th="調理項目">{{item.name}}</div>
-                        <div class="xinyao_datatable-td info" data-th="說明">
-                            <p class="txt" v-html="item.directions"></p>
-                        </div>
-                        <div class="xinyao_datatable-td action" data-th="操作">
-                            <div class="action-amount">
-                                <!-- 數量加減元件 -->
-                                <!-- dist\assets\js\vue-components.js -->
-                                <amount-field v-model="item.amount"></amount-field>
-
-                                <!-- 按鈕：加入 -->
-                                <!-- `@click` 是 Vue 中的事件綁定語法，用來定義當按鈕被點擊時執行的方法。 -->
-                                <!-- 此按鈕點擊時會執行 `addToList(item)` 方法，將當前項目 `item` 加入到列表中。 -->
-                                <button type="button" class="action_btn" @click="addToList(item)">加入</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="xinyao_datatable-ft"  v-if="isMobile">
-                <a href="./home.html" class="xinyao_btn xinyao_btn-nobg">回目錄</a>
-                <a href="./cart.html" class="xinyao_btn">查看已挑選</a>
-            </div>
-        </div>
-        <!-- popup 彈出視窗 -->
-        <div v-if="showPopupSelect" class="popup popup_select">
-            <div class="popup-block">
-                <div class="popup-hd ">
-                    <b class="popup-title txt-main-color">請選擇您不適的部位</b>
-                    <small class="font-note txt-sub-color">可複選</small>
-                </div>
-                <div class="popup-bd">
-                    <div class="select_parts">
-                        <ul class="select_parts-list">
-                            <li class="select_parts-item" v-for="(part, index) in selectParts">
-                                <label :for="'part-' + index" class="item_label">
-                                    <input type="checkbox" class="item_input--checkbox" :id="'part-' + index" :value="part.part_name" v-model="selectedParts">
-                                    <div class="select_parts-item-inner">
-                                        <span class="label">{{part.part_name}}</span>
-                                        <span class="img">
-                                            <img :src="part.part_img" :alt="part.part_name">
-                                        </span>
-                                    </div>
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="popup-ft">
-                    <!-- 點擊後執行`handleSelection(isUnknown)`方法 -->
-                    <button @click="handleSelection(true)" type="button" class="xinyao_btn xinyao_btn-nobg">無/未知</button>
-                    <button @click="handleSelection(false)" type="button" class="xinyao_btn" :disabled="!hasSelected">確認</button>
-                </div>
-                <!-- 點擊後，關閉popup -->
-                <button @click="showPopupSelect = false" type="button" class="popup-close">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-        </div>
-        <!-- /.popup_select END ! -->
-        <!-- 通知元件 (notification) -->
-        <!-- dist\assets\js\vue-components.js -->
-        <notification :show="showNotification" :msgtitle="notificationTitle" :msgcnt="notificationCnt"></notification>
     </main>
 
     <!-- /.page_main END  !! -->

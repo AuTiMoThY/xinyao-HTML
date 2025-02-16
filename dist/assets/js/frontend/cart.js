@@ -1,8 +1,10 @@
 import { InputField, amountField, SelectField, notification } from '../vue-components.js';
 import { useFormValidation } from '../vue-validation.js';
 import { useOpenSearch, useNotification } from '../vue-composable.js';
+import { useGlobalStateStore } from '../globalState.js';
 
 const { ref, createApp, computed, onMounted, watchEffect } = Vue;
+const { createPinia } = Pinia;
 const cartSetup = {
     components: {
         'input-field': InputField,
@@ -13,14 +15,13 @@ const cartSetup = {
     setup() {
         const { showNotification, notificationTitle, notificationCnt, showNoti, closeNoti } = useNotification();
         const { isOpenSearch } = useOpenSearch();
+        const globalState = useGlobalStateStore();
         const eventBus = window.eventBus;
         const isNodata = ref(false);
         const selectedItems = ref(JSON.parse(localStorage.getItem('selectedItems') || '[]'));
         xinyao.log("localStorage selectedItems", selectedItems.value);
 
-
-        // const replay = ref(JSON.parse(localStorage.getItem('replay') || '[]'));
-        // xinyao.log("localStorage replay", replay.value);
+        const isMobile = ref(globalState.isMobile);
 
         const p_name = ref('');
         const p_time_options = ref([]);
@@ -75,7 +76,8 @@ const cartSetup = {
 
             // 更新 localStorage
             localStorage.setItem('selectedItems', JSON.stringify(selectedItems.value));
-            eventBus.setSelectedItemsCount(selectedItems.value.length);
+            // eventBus.setSelectedItemsCount(selectedItems.value.length);
+            globalState.updateSelectedItemsCount();
         };
 
         // 移除調理項目
@@ -130,14 +132,17 @@ const cartSetup = {
             isOpenSearch,
             showNotification, notificationTitle, notificationCnt,
             addToFav,
-            sendCart
+            sendCart,
+            isMobile
         }
     }
 
 }
 
 const cart = createApp(cartSetup);
+const pinia = createPinia();
 cart.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('module-')
 }
+cart.use(pinia);
 cart.mount("#cart");
