@@ -90,10 +90,15 @@ const xinyaoListSetup = {
 
         // 加入的項目儲存在localStorage
         const addToCart = () => {
+            console.log(globalState.selectedItemsCount);
+            
             localStorage.setItem('selectedItems', JSON.stringify(selectedItems.value));
 
             // 更新挑選中的項目
             globalState.updateSelectedItemsCount();
+
+            console.log(globalState.selectedItemsCount);
+
 
             // 顯示通知訊息
             showNoti('加入成功', `您可以到<a class="link" href="${baseUrl}cart.html">挑選中調理帖</a>查看已加入的調理項目。`);

@@ -14,7 +14,8 @@ export const useGlobalStateStore = defineStore('globalState', {
             this.selectedItemsCount = count;
         },
         updateSelectedItemsCount() {
-            this.selectedItemsCount = JSON.parse(localStorage.getItem('selectedItems') || '[]').length;
+            const items = JSON.parse(localStorage.getItem('selectedItems') || '[]');
+            this.selectedItemsCount = items.length;
         },
         toggleSearch() {
             this.isOpenSearch = !this.isOpenSearch;
