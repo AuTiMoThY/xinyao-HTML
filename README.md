@@ -1,7 +1,7 @@
 # 抓藥系統改版
 
 ## 📝 專案簡介
-使用 vue3 + scss + Gulp 開發的藥方調理平台之前端頁面，提供使用者便捷的線上藥方管理服務。
+使用 vue3 + Nunjucks + scss + Gulp 開發的藥方調理平台之前端頁面，提供使用者便捷的線上藥方管理服務。
 
 
 ## 🔗 相關連結
@@ -40,8 +40,8 @@
 ## 🔧 安裝說明
 1. 下載專案
 ```bash
-git clone https://github.com/AuTiMoThY/meeting-mgmt-nuxt3.git
-cd meeting-mgmt-nuxt3
+git clone https://github.com/AuTiMoThY/xinyao-HTML.git
+cd xinyao-HTML
 ``` 
 
 2. 安裝依賴
