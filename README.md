@@ -1,7 +1,7 @@
 # 抓藥系統改版
 
 ## 📝 專案簡介
-是一個藥方調理平台，提供使用者便捷的線上藥方管理服務。
+使用 vue3 + scss + Gulp 開發的藥方調理平台之前端頁面，提供使用者便捷的線上藥方管理服務。
 
 
 ## 🔗 相關連結
@@ -32,6 +32,34 @@
 - 自定義提示訊息元件
 - 優化的使用者互動效果
 - 資料列表性能優化
+
+## 💻 環境要求
+- Node.js v22.11.0
+- npm v10.9.0
+
+## 🔧 安裝說明
+1. 下載專案
+```bash
+git clone https://github.com/AuTiMoThY/meeting-mgmt-nuxt3.git
+cd meeting-mgmt-nuxt3
+``` 
+
+2. 安裝依賴
+```bash
+npm install
+```
+
+3. 啟動開發伺服器
+```bash
+gulp
+```
+
+4. 訪問網站
+```bash
+http://localhost:8081
+```
+
+5. 靜態檔案位於: `dist` 資料夾
 
 ## 📸 系統展示
 ![目錄頁](https://demo.auozzy.com/picture/xinyao-index.jpg)
